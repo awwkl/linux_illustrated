@@ -1,6 +1,8 @@
-Welcome to Linux Illustrated
+# Welcome to Linux Illustrated
 
-- simple illustrations of Linux
+### - simple illustrations of Linux
+
+Please view the website at 
 
 I have found a lack of illustrations in most explanations of Linux topics out there. This website serves to provide simple illustrations and explanations on Linux, targeted for newcomers and those wishing to learn more.
 
