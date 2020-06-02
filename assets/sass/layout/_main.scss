@@ -7,6 +7,10 @@
 /* Main */
 
 	#main {
+		p, li {
+			text-align: justify; // sky
+		}
+
 		@include vendor('flex-grow', '1');
 		@include vendor('flex-shrink', '1');
 		width: 100%;
@@ -28,6 +32,8 @@
 
 		@include breakpoint('<=xlarge') {
 			> .inner {
+				max-width: 880px; // sky
+
 				@include padding(0, 5em);
 
 				> section {
@@ -38,6 +44,8 @@
 
 		@include breakpoint('<=large') {
 			> .inner {
+				max-width: 848px;	// sky
+				
 				@include padding(0, 4em);
 
 				> section {

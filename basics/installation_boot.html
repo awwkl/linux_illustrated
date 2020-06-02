@@ -19,36 +19,33 @@
 		<div id="wrapper">
 			<!-- Main -->
 			<div id="main">
-				<div class="inner">
+				<div class="inner" id="article-inner">
 					<!-- Header -->
 					<header id="header">
-						<a href="index.html" class="logo"
+						<a href="/index.html" class="logo"
 							><strong>Linux</strong> Illustrated</a
 						>
 						<ul class="icons">
 							<li>
-								<a href="#" class="icon brands fa-twitter"
-									><span class="label">Twitter</span></a
+								<a href="/topics.html" class="icon solid fa-cat"
+									><span class="label">Basics</span></a
+								>
+							</li>
+
+							<li>
+								<a href="/topics.html" class="icon solid fa-horse"
+									><span class="label">Intermediate</span></a
+								>
+							</li>
+
+							<li>
+								<a href="/topics.html" class="icon solid fa-dragon"
+									><span class="label">Advanced</span></a
 								>
 							</li>
 							<li>
-								<a href="#" class="icon brands fa-facebook-f"
-									><span class="label">Facebook</span></a
-								>
-							</li>
-							<li>
-								<a href="#" class="icon brands fa-snapchat-ghost"
-									><span class="label">Snapchat</span></a
-								>
-							</li>
-							<li>
-								<a href="#" class="icon brands fa-instagram"
-									><span class="label">Instagram</span></a
-								>
-							</li>
-							<li>
-								<a href="#" class="icon brands fa-medium-m"
-									><span class="label">Medium</span></a
+								<a href="/topics.html" class="icon solid fa-plus"
+									><span class="label">Other topics/span></a
 								>
 							</li>
 						</ul>
@@ -99,20 +96,24 @@
 							used as an example here as it is quite common and user-friendly.
 						</p>
 
+						<hr class="major" />
+
 						<h2>Boot Process</h2>
 
 						<span class="image main"
 							><img src="../images/basics/boot_01.png" alt=""
 						/></span>
 
+						<h4 style="display: inline;">UEFI and firmware</h4>
 						<a
 							href="https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface"
-							>UEFI and firmware</a
+							class="icon solid fa-link"
+							><span class="label">UEFI</span></a
 						>
 
 						<ul>
 							<li>
-								small pieces of code stored on the motherboard
+								small piece of code stored on the motherboard
 							</li>
 							<li>launches bootloaders <a href="#additional-info">[1]</a></li>
 							<li>
@@ -121,8 +122,11 @@
 							</li>
 						</ul>
 
-						<a href="https://en.wikipedia.org/wiki/EFI_system_partition"
-							>EFI system partition (ESP)</a
+						<h4 style="display: inline;">EFI system partition (ESP)</h4>
+						<a
+							href="https://en.wikipedia.org/wiki/EFI_system_partition"
+							class="icon solid fa-link"
+							><span class="label">EFI system partition (ESP)</span></a
 						>
 
 						<ul>
@@ -132,8 +136,11 @@
 							</li>
 						</ul>
 
-						<a href="https://wiki.archlinux.org/index.php/Partitioning"
-							>Partitioning</a
+						<h4 style="display: inline;">Partitioning</h4>
+						<a
+							href="https://wiki.archlinux.org/index.php/Partitioning"
+							class="icon solid fa-link"
+							><span class="label">Partitioning</span></a
 						>
 
 						<ul>
@@ -149,8 +156,11 @@
 							</li>
 						</ul>
 
-						<a href="https://wiki.archlinux.org/index.php/file_systems"
-							>Filesystem</a
+						<h4 style="display: inline;">Filesystem</h4>
+						<a
+							href="https://wiki.archlinux.org/index.php/file_systems"
+							class="icon solid fa-link"
+							><span class="label">Filesystem</span></a
 						>
 
 						<ul>
@@ -166,8 +176,6 @@
 								your data
 							</li>
 						</ul>
-
-						<hr class="major" />
 
 						<h2>Mounting</h2>
 
@@ -198,7 +206,7 @@
 						<ul>
 							<li>
 								attach a disk partition (and its filesystem) at a specified
-								mount point
+								mount point,
 							</li>
 							<li>
 								allowing read/write of files stored on the partition from that
@@ -219,8 +227,7 @@
 						<h4>Grub Bootloader</h4>
 						<ul>
 							<li>
-								Ubuntu's default bootloader of choice (there are other
-								bootloaders)
+								Ubuntu's default bootloader (there are alternative bootloaders)
 							</li>
 							<li>
 								grubx64.efi => bootloader binary file that is executed by UEFI
@@ -242,8 +249,6 @@
 							</li>
 						</ul>
 
-						<hr class="major" />
-
 						<h2>Partitioning Setup End Result</h2>
 
 						<span class="image main"
@@ -253,10 +258,10 @@
 						/></span>
 
 						<p>
-							This is just an example. The device names (e.g. /sda1) may not
-							match yours. /sda (as opposed to /sdb, /sdc, ...) refers to the
-							first disk that is detected. /dev/sda1 refers to the first
-							partition of the first disk.
+							This is just an example. The partition names (e.g. "sda1") may not
+							match yours. "sda" refers to the first disk that is detected (as
+							opposed to "sdb", "sdc", ...) . sda1 refers to the first partition
+							of the first disk (as opposed to "sda2", "sda3", ...).
 						</p>
 
 						<ul>
@@ -269,9 +274,10 @@
 							<li>
 								the
 								<a href="https://wiki.archlinux.org/index.php/swap#Swap_space"
-									>Swap</a
+									>swap</a
 								>
-								partition, in simple terms, allows you to extend your RAM space
+								partition, in simple terms, allows files and objects residing in
+								RAM to be 'swapped' to the storage drive, thus extending the RAM
 							</li>
 							<li>
 								ext4 partition is used for storing your Ubuntu (Linux) files
@@ -279,9 +285,9 @@
 							</li>
 						</ul>
 
-						<p>
-							In total, Ubuntu requires:
-						</p>
+						<span>
+							Ubuntu requires 2 partitions minimally, in total:
+						</span>
 
 						<ul>
 							<li>
@@ -298,7 +304,7 @@
 								vfat filesystem type (otherwise fat12, fat16, fat32)
 							</li>
 							<li>
-								'/boot/efi' mountpoint usually (there exist other possible
+								'/boot/efi' mountpoint, usually (there exist other possible
 								mountpoints)
 							</li>
 							<li>
@@ -329,7 +335,7 @@
 
 						<hr class="major" />
 
-						<h2>Additional Info</h2>
+						<h2 id="additional-info">Additional Info</h2>
 						<ol>
 							<li>
 								UEFI launches
@@ -379,7 +385,7 @@
 							<li>
 								<a
 									href="https://wiki.archlinux.org/index.php/EFI_system_partition"
-									>ArchWiki - EFI System Partition (ESP)</a
+									>ArchWiki - EFI system partition (ESP)</a
 								>
 							</li>
 							<li>
@@ -398,16 +404,15 @@
 
 						<h2>Final Notes</h2>
 						<p>
-							This explanation of the Linux boot process is targeted at
-							newcomers to Linux. The rationale for creating this guide is to
-							help newcomers understand the Linux boot process, using
-							illustrations, which I find most other guides lack. I would
-							appreciate any feedback, and corrections if I have made any
-							mistakes. Apologies in advance if I have!
+							This explanation of the Linux installation and boot process is
+							targeted at newcomers to Linux. The extensive use of illustrations
+							is something I find most other guides lack. I would appreciate any
+							feedback, and corrections if I have made any mistakes. Apologies
+							in advance if I have!
 						</p>
 						<p>
 							Email:
-							<br>
+							<br />
 							sky100aw@gmail.com
 						</p>
 					</section>
@@ -436,9 +441,59 @@
 						<ul>
 							<li><a href="/index.html">Homepage</a></li>
 							<li>
-								<span class="opener">Basics</span>
+								<span class="opener">
+									<a href="" class="icon solid fa-cat" style="display:inline; font-size:20px; margin-right:10px;"></a>
+									Basics 
+								</span>
+							
 								<ul>
-									<li><a href="/basics/installation_boot.html">Installation and Boot Process</a></li>
+									<li>
+										<a href="/basics/installation_boot.html"
+											>Installation and Boot Process</a
+										>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<span class="opener">
+									<a href="" class="icon solid fa-horse" style="display:inline; font-size:18px; margin-right:10px;"></a>
+									Intermediate 
+								</span>
+							
+								<ul>
+									<li>
+										<a href=""
+											></a
+										>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<span class="opener">
+									<a href="" class="icon solid fa-dragon" style="display:inline; font-size:16px; margin-right:10px;"></a>
+									Advanced 
+								</span>
+							
+								<ul>
+									<li>
+										<a href=""
+											></a
+										>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<span class="opener">
+									<a href="" class="icon solid fa-plus" style="display:inline; font-size:22px; margin-right:10px;"></a>
+									Other Topics 
+								</span>
+							
+								<ul>
+									<li>
+										<a href=""
+											></a
+										>
+									</li>
 								</ul>
 							</li>
 						</ul>
@@ -458,7 +513,6 @@
 									Installation and Boot Process
 								</p>
 							</article>
-							
 						</div>
 						<ul class="actions">
 							<li><a href="#" class="button">More</a></li>

@@ -33,12 +33,12 @@
 
 // Palette.
 	$palette: (
-		bg:					rgb(230, 230, 230),
-		bg-alt:				rgb(200, 200, 200),
-		fg:					rgb(53,53,53),
-		fg-bold:			rgb(61,68,73),
-		fg-light:			rgb(80, 80, 80),
+		bg:					rgb(230, 230, 230),					// sky
+		bg-alt:				rgb(200, 200, 200),					// sky
+		fg:					rgb(53,53,53),						// sky converted to rgb
+		fg-bold:			rgb(61,68,73),						// sky
+		fg-light:			rgb(80, 80, 80),					// sky
 		border:				rgba(210,215,217,0.75),
 		border-bg:			transparentize(#e6ebed, 0.75),
-		accent:				#2c2f33
+		accent:				#7a583c					// sky
 	);
