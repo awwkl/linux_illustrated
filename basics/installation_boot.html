@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Linux Illustrated - Installation and Boot Process</title>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, user-scalable=no"
+		/>
+		<link rel="stylesheet" href="../assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo"
+							><strong>Linux</strong> Illustrated</a
+						>
+						<ul class="icons">
+							<li>
+								<a href="#" class="icon brands fa-twitter"
+									><span class="label">Twitter</span></a
+								>
+							</li>
+							<li>
+								<a href="#" class="icon brands fa-facebook-f"
+									><span class="label">Facebook</span></a
+								>
+							</li>
+							<li>
+								<a href="#" class="icon brands fa-snapchat-ghost"
+									><span class="label">Snapchat</span></a
+								>
+							</li>
+							<li>
+								<a href="#" class="icon brands fa-instagram"
+									><span class="label">Instagram</span></a
+								>
+							</li>
+							<li>
+								<a href="#" class="icon brands fa-medium-m"
+									><span class="label">Medium</span></a
+								>
+							</li>
+						</ul>
+					</header>
+
+					<!-- Content -->
+					<section>
+						<header class="main">
+							<h2>Basics/</h2>
+							<h1>Installation and Boot Process</h1>
+						</header>
+
+						<h2>Introduction</h2>
+
+						<p>
+							This guide simplifies the Linux boot process to include only the
+							details important to forming a mental model of the boot process.
+							It provides concise illustrations to explain the following:
+						</p>
+						<ul>
+							<li>how Linux boots after turning on the power</li>
+							<li>partitioning and mounting</li>
+							<li>every step of Linux setup and final goal of installation</li>
+						</ul>
+
+						<p>
+							When assembling an IKEA cupboard, most people have some idea of
+							what every step is supposed to achieve, and what the final product
+							is supposed to look like. However, when dual-booting Linux and
+							Windows for the first time, many people are not sure what each
+							step is supposed to perform, or what the final system setup is
+							supposed to resemble.
+						</p>
+
+						<p>
+							Most guides do not explain the steps or the final goal well. Many
+							people feel 'lost', and that is understandable. You have no way of
+							checking if you had correctly performed the earlier steps, or if
+							you had accidentally made a mistake prior. Also, you have no idea
+							if the specific steps and options you were asked to select by the
+							guide are suited for your particular system and needs. Right
+							before clicking the install button, you are *still* uncertain if
+							everything has been set up correctly...
+						</p>
+
+						<p>
+							The guide is applicable to most distributions of Linux. Ubuntu is
+							used as an example here as it is quite common and user-friendly.
+						</p>
+
+						<h2>Boot Process</h2>
+
+						<span class="image main"
+							><img src="../images/basics/boot_01.png" alt=""
+						/></span>
+
+						<a
+							href="https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface"
+							>UEFI and firmware</a
+						>
+
+						<ul>
+							<li>
+								small pieces of code stored on the motherboard
+							</li>
+							<li>launches bootloaders <a href="#additional-info">[1]</a></li>
+							<li>
+								each UEFI boot menu entry points to a bootloader, usually found
+								in an EFI system partition.
+							</li>
+						</ul>
+
+						<a href="https://en.wikipedia.org/wiki/EFI_system_partition"
+							>EFI system partition (ESP)</a
+						>
+
+						<ul>
+							<li>
+								a 'special' partition of a storage disk that contains
+								bootloaders
+							</li>
+						</ul>
+
+						<a href="https://wiki.archlinux.org/index.php/Partitioning"
+							>Partitioning</a
+						>
+
+						<ul>
+							<li>
+								partitioning divides a storage disk into sections (partitions)
+							</li>
+							<li>
+								partitioning is 'logical', not an actual physical dividing of
+								the disk
+							</li>
+							<li>
+								the partitioning table (layout) can be reset or changed
+							</li>
+						</ul>
+
+						<a href="https://wiki.archlinux.org/index.php/file_systems"
+							>Filesystem</a
+						>
+
+						<ul>
+							<li>
+								organizes data stored on a disk partition
+							</li>
+							<li>
+								allows data to be interpreted in a logical manner, rather than
+								just looking like random 0s and 1s
+							</li>
+							<li>
+								the different filesystem types are different ways of organizing
+								your data
+							</li>
+						</ul>
+
+						<hr class="major" />
+
+						<h2>Mounting</h2>
+
+						<span class="image main"
+							><img src="../images/basics/mount_01.png" alt=""
+						/></span>
+
+						<h4>EFI System Partition (ESP)</h4>
+						<ul>
+							<li>
+								contains Windows bootloader
+							</li>
+							<li>
+								contains Ubuntu bootloader, which is responsible for loading
+								Ubuntu's linux kernel and initial filesystem
+							</li>
+							<li>
+								physically located at /dev/sda3, the third physical partition of
+								the disk
+							</li>
+							<li>
+								usually mounted at mountpoint /boot/efi, allowing Ubuntu to
+								access its files after the operating system boots
+							</li>
+						</ul>
+
+						<h4>Mounting</h4>
+						<ul>
+							<li>
+								attach a disk partition (and its filesystem) at a specified
+								mount point
+							</li>
+							<li>
+								allowing read/write of files stored on the partition from that
+								mountpoint
+							</li>
+						</ul>
+
+						<h4>Bootloader</h4>
+						<ul>
+							<li>
+								loads the kernel (the core of the operating system) into RAM and
+							</li>
+							<li>
+								loads the initial ram-based filesystem (initramfs) into RAM
+							</li>
+						</ul>
+
+						<h4>Grub Bootloader</h4>
+						<ul>
+							<li>
+								Ubuntu's default bootloader of choice (there are other
+								bootloaders)
+							</li>
+							<li>
+								grubx64.efi => bootloader binary file that is executed by UEFI
+							</li>
+							<li>
+								grub.cfg => configuration file used to change options (configs)
+								for the grub bootloader
+							</li>
+						</ul>
+
+						<h4>What happens when you click "Install Now"</h4>
+						<ul>
+							<li>
+								a bootloader is added to your EFI system partition by Ubuntu
+							</li>
+							<li>
+								a UEFI boot menu entry is added, pointing at the newly added
+								bootloader in your ESP
+							</li>
+						</ul>
+
+						<hr class="major" />
+
+						<h2>Partitioning Setup End Result</h2>
+
+						<span class="image main"
+							><img
+								src="../images/basics/partition_01.png"
+								alt="basic partitioning end result"
+						/></span>
+
+						<p>
+							This is just an example. The device names (e.g. /sda1) may not
+							match yours. /sda (as opposed to /sdb, /sdc, ...) refers to the
+							first disk that is detected. /dev/sda1 refers to the first
+							partition of the first disk.
+						</p>
+
+						<ul>
+							<li>
+								vfat partition is your ESP partition
+							</li>
+							<li>
+								ntfs partitions belong to Windows
+							</li>
+							<li>
+								the
+								<a href="https://wiki.archlinux.org/index.php/swap#Swap_space"
+									>Swap</a
+								>
+								partition, in simple terms, allows you to extend your RAM space
+							</li>
+							<li>
+								ext4 partition is used for storing your Ubuntu (Linux) files
+								(root partition)
+							</li>
+						</ul>
+
+						<p>
+							In total, Ubuntu requires:
+						</p>
+
+						<ul>
+							<li>
+								one EFI system partition (/boot/efi)
+							</li>
+							<li>
+								one root mountpoint (/)
+							</li>
+						</ul>
+
+						<h4>EFI system partition (ESP)</h4>
+						<ul>
+							<li>
+								vfat filesystem type (otherwise fat12, fat16, fat32)
+							</li>
+							<li>
+								'/boot/efi' mountpoint usually (there exist other possible
+								mountpoints)
+							</li>
+							<li>
+								if Windows is already installed, re-use the existing ESP that
+								came along with Windows. Ubuntu will install its bootloader
+								alongside Window's
+							</li>
+							<li>
+								for Ubuntu and some other Linux distros, the installer will
+								auto-detect (and auto-mount) the ESP for you. You might not have
+								to worry about the ESP or bootloader at all
+							</li>
+						</ul>
+
+						<h4>'/' (root) mountpoint</h4>
+						<ul>
+							<li>
+								ext4 filesystem type
+							</li>
+							<li>
+								'/' mountpoint
+							</li>
+							<li>
+								ensure that the correct physical partition has been selected.
+								The installer will reset all data on this partition
+							</li>
+						</ul>
+
+						<hr class="major" />
+
+						<h2>Additional Info</h2>
+						<ol>
+							<li>
+								UEFI launches
+								<a
+									href="https://wiki.archlinux.org/index.php/Arch_boot_process#UEFI"
+									>EFI applications</a
+								>, which includes more than just bootloaders. UEFI firmware is
+								capable of loading the Linux kernel directly as an executable
+								into RAM. See
+								<a href="https://wiki.archlinux.org/index.php/EFISTUB"
+									>EFISTUB</a
+								>
+								for more info.
+							</li>
+						</ol>
+
+						<h2>References</h2>
+						<ol>
+							<li>
+								<a href="https://wiki.archlinux.org/index.php/Arch_boot_process"
+									>ArchWiki - Arch Boot Process</a
+								>
+							</li>
+							<li>
+								<a
+									href="https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface"
+									>ArchWiki - UEFI</a
+								>
+							</li>
+							<li>
+								<a
+									href="https://wiki.archlinux.org/index.php/Arch_boot_process#Boot_loader"
+									>ArchWiki -Bootloader</a
+								>
+							</li>
+							<li>
+								<a href="https://wiki.archlinux.org/index.php/GRUB"
+									>ArchWiki - GRUB bootloader</a
+								>
+							</li>
+							<li>
+								<a href="https://wiki.gentoo.org/wiki/GRUB2"
+									>Gentoo Wiki - GRUB bootloader</a
+								>
+							</li>
+
+							<li>
+								<a
+									href="https://wiki.archlinux.org/index.php/EFI_system_partition"
+									>ArchWiki - EFI System Partition (ESP)</a
+								>
+							</li>
+							<li>
+								<a
+									href="https://www.happyassassin.net/posts/2014/01/25/uefi-boot-how-does-that-actually-work-then/"
+									>AdamW - UEFI</a
+								>
+							</li>
+							<li>
+								<a
+									href="https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface"
+									>Wikipedia - UEFI</a
+								>
+							</li>
+						</ol>
+
+						<h2>Final Notes</h2>
+						<p>
+							This explanation of the Linux boot process is targeted at
+							newcomers to Linux. The rationale for creating this guide is to
+							help newcomers understand the Linux boot process, using
+							illustrations, which I find most other guides lack. I would
+							appreciate any feedback, and corrections if I have made any
+							mistakes. Apologies in advance if I have!
+						</p>
+						<p>
+							Email:
+							<br>
+							sky100aw@gmail.com
+						</p>
+					</section>
+				</div>
+			</div>
+
+			<!-- SIDE BAR STARTS BELOW -->
+			<!-- SIDE BAR STARTS BELOW -->
+			<!-- SIDE BAR STARTS BELOW -->
+
+			<!-- Sidebar -->
+			<div id="sidebar">
+				<div class="inner">
+					<!-- Search -->
+					<section id="search" class="alt">
+						<form method="post" action="#">
+							<input type="text" name="query" id="query" placeholder="Search" />
+						</form>
+					</section>
+
+					<!-- Menu -->
+					<nav id="menu">
+						<header class="major">
+							<h2>Menu</h2>
+						</header>
+						<ul>
+							<li><a href="/index.html">Homepage</a></li>
+							<li>
+								<span class="opener">Basics</span>
+								<ul>
+									<li><a href="/basics/installation_boot.html">Installation and Boot Process</a></li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+
+					<!-- Section -->
+					<section>
+						<header class="major">
+							<h2>Related Topics</h2>
+						</header>
+						<div class="mini-posts">
+							<article>
+								<a href="/basics/installation_boot.html" class="image"
+									><img src="/images/basics/boot_01.png" alt=""
+								/></a>
+								<p>
+									Installation and Boot Process
+								</p>
+							</article>
+							
+						</div>
+						<ul class="actions">
+							<li><a href="#" class="button">More</a></li>
+						</ul>
+					</section>
+
+					<!-- Section -->
+					<section>
+						<header class="major">
+							<h2>Get in touch</h2>
+						</header>
+						<p>
+							I have found a lack of illustrations in most explanations of Linux
+							topics out there. This website serves to provide simple
+							illustrations and explanations on Linux, targeted for newcomers
+							and those wishing to learn more.
+						</p>
+						<p>
+							These illustrations simplify the many complexities of Linux, to
+							include only the details important to forming a solid mental model
+							on the particular Linux subject. I focus mainly on conceptual
+							topics that will benefit from good illustrations.
+						</p>
+						<p>
+							I would appreciate any feedback, and corrections if I have made
+							any mistakes. Apologies in advance if I have!
+						</p>
+						<ul class="contact">
+							<li class="icon solid fa-envelope">
+								<a href="#">sky100aw@gmail.com </a>
+							</li>
+							<li class="icon solid fa-phone">-</li>
+							<li class="icon solid fa-home">
+								-<br />
+								-
+							</li>
+						</ul>
+					</section>
+
+					<!-- Footer -->
+					<footer id="footer">
+						<p class="copyright">
+							&copy; Untitled. All rights reserved. Demo Images:
+							<a href="https://unsplash.com">Unsplash</a>. Design:
+							<a href="https://html5up.net">HTML5 UP</a>.
+						</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+
+		<!-- Scripts -->
+		<script src="/assets/js/jquery.min.js"></script>
+		<script src="/assets/js/browser.min.js"></script>
+		<script src="/assets/js/breakpoints.min.js"></script>
+		<script src="/assets/js/util.js"></script>
+		<script src="/assets/js/main.js"></script>
+	</body>
+</html>
