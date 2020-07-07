@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>Linux Illustrated - Boot UEFI</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+  </head>
+  <body class="is-preload">
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Main -->
+      <div id="main">
+        <div class="inner" id="article-inner">
+          <!-- Header -->
+          <header id="header">
+            <a href="../index.html" class="logo"
+              ><strong>Linux</strong> Illustrated</a
+            >
+            <ul class="icons">
+              <li>
+                <a href="../topics.html" class="icon solid fa-cat"
+                  ><span class="label">Basics</span></a
+                >
+              </li>
+
+              <li>
+                <a href="../topics.html" class="icon solid fa-horse"
+                  ><span class="label">General</span></a
+                >
+              </li>
+
+              <li>
+                <a href="../topics.html" class="icon solid fa-dragon"
+                  ><span class="label">Systems</span></a
+                >
+              </li>
+              <li>
+                <a href="../topics.html" class="icon solid fa-plus"
+                  ><span class="label">Others</span></a
+                >
+              </li>
+            </ul>
+          </header>
+
+          <!-- Content -->
+          <section>
+            <header class="main">
+              <h2>Basics/</h2>
+              <h1>UEFI Boot Process</h1>
+            </header>
+
+            <h2>Introduction</h2>
+
+            <p>
+              This guide simplifies the Linux UEFI boot process and provides
+              concise illustrations for you to form a clear mental model for the
+              following:
+            </p>
+            <ul>
+              <li>how Linux boots after turning on the power</li>
+              <li>partitioning and mounting</li>
+              <li>every step and final goal of installation</li>
+            </ul>
+
+            <p>
+              The guide is applicable to most distributions of Linux. Ubuntu is
+              used as an example here as it is quite common and user-friendly.
+            </p>
+
+            <h2>Before continuing, some things to take note...</h2>
+
+            <p>
+              The general flow of control is as follows. Continue reading the
+              article to piece the puzzle together.
+            </p>
+            <span class="image main"
+              ><img src="../images/basics/uefi_flow_of_control.png" alt="UEFI flow of control"
+			/></span>
+			
+			<p>
+				
+			</p>
+
+            <hr class="major" />
+
+            <h2>Boot Process</h2>
+
+            <span class="image main"
+              ><img src="../images/basics/boot_01.png" alt=""
+            /></span>
+
+            <p>
+              Read steps 1-6 above to understand the Linux boot process; from
+              power on, to starting the bootloader, to loading the kernel and
+              mounting your Ubuntu partition. Continue on for further
+              explanation of these terms.
+            </p>
+            <h4 style="display: inline;">UEFI and firmware</h4>
+            <a
+              href="https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface"
+              class="icon solid fa-link"
+              ><span class="label">UEFI</span></a
+            >
+
+            <ul>
+              <li>
+                small piece of code stored on the motherboard
+              </li>
+              <li>launches bootloaders <a href="#additional-info">[1]</a></li>
+              <li>
+                each UEFI boot menu entry points to a bootloader, usually found
+                in an EFI system partition.
+			  </li>
+              <li>a successor to 
+				  <a href="https://en.wikipedia.org/wiki/BIOS"
+				>BIOS</a</li>
+			  
+            </ul>
+
+            <h4 style="display: inline;">EFI system partition (ESP)</h4>
+            <a
+              href="https://en.wikipedia.org/wiki/EFI_system_partition"
+              class="icon solid fa-link"
+              ><span class="label">EFI system partition (ESP)</span></a
+            >
+
+            <ul>
+              <li>
+                a 'special' partition of a storage device that contains
+                bootloaders
+              </li>
+            </ul>
+
+            <h4 style="display: inline;">Partitioning</h4>
+            <a
+              href="https://wiki.archlinux.org/index.php/Partitioning"
+              class="icon solid fa-link"
+              ><span class="label">Partitioning</span></a
+            >
+
+            <ul>
+              <li>
+                partitioning divides a storage device into sections (partitions)
+              </li>
+              <li>
+                partitioning is 'logical', not an actual physical dividing of
+                the storage device
+              </li>
+              <li>
+                the partitioning table (layout) can be reset or changed
+              </li>
+            </ul>
+
+            <h4 style="display: inline;">Filesystem</h4>
+            <a
+              href="https://wiki.archlinux.org/index.php/file_systems"
+              class="icon solid fa-link"
+              ><span class="label">Filesystem</span></a
+            >
+
+            <ul>
+              <li>
+                organizes data (files, directories, etc.) stored on a device
+                partition
+              </li>
+              <li>
+                allows data to be interpreted in a logical manner, rather than
+                just looking like random 0s and 1s
+              </li>
+              <li>
+                the different filesystem types are different ways of organizing
+                your data
+              </li>
+			</ul>
+			
+			<h4 style="display: inline;">Kernel Linux</h4>
+            <a
+              href="https://www.redhat.com/en/topics/linux/what-is-the-linux-kernel"
+              class="icon solid fa-link"
+              ><span class="label">Kernel</span></a
+            >
+
+            <ul>
+              <li>
+                the core of the operating system
+              </li>
+              <li>
+                responsible for CPU scheduling, memory management, process management, filesystem management, device management, networking
+              </li>
+              <li>
+                executable file that is loaded into RAM during boot process
+              </li>
+			</ul>
+			
+			<h4 style="display: inline;">Initramfs</h4>
+            <a
+              href="https://wiki.gentoo.org/wiki/Initramfs/Guide"
+              class="icon solid fa-link"
+              ><span class="label">Initramfs</span></a
+            >
+
+            <ul>
+              <li>
+                initial ram-based filesystem (init-ram-fs)
+              </li>
+              <li>
+                tools and scripts for mounting the root filesystem, that contains your files and directories and rest of the operating system
+              </li>
+            </ul>
+
+            <h2>Mounting</h2>
+
+            <span class="image main"
+              ><img src="../images/basics/mount_01.png" alt=""
+            /></span>
+
+            <h4>Mounting</h4>
+            <ul>
+              <li>
+                attach a storage device partition (and its filesystem) at a
+                specified mount point
+              </li>
+              <li>
+                allows read/write of files stored on the partition from that
+                mountpoint
+			  </li>
+			  <li>
+                see my article on <a href="mounting.html">mounting</a>
+              </li>
+            </ul>
+
+            <h4>Bootloader</h4>
+            <ul>
+              <li>
+                loads the kernel (the core of the operating system) into RAM and
+              </li>
+              <li>
+                loads the initial ram-based filesystem (initramfs) into RAM
+              </li>
+            </ul>
+
+            <h4>Grub Bootloader</h4>
+            <ul>
+              <li>
+                Ubuntu's default bootloader (there are alternative bootloaders)
+              </li>
+              <li>
+				<strong>grubx64.efi</strong> => located on the EFI system partition, and is the 
+				bootloader binary executable file that is executed by UEFI
+              </li>
+              <li>
+				<strong>grub.cfg</strong> => located in /boot directory, and is the configuration file
+				 used to change options (configurations) for the grub bootloader, 
+              </li>
+            </ul>
+
+            <h4>EFI System Partition (ESP)</h4>
+            <ul>
+              <li>
+                contains Windows bootloader
+              </li>
+              <li>
+                contains Ubuntu bootloader (grubx64.efi), which is responsible for loading
+                Ubuntu's linux kernel and initramfs
+              </li>
+              <li>
+                usually mounted at mountpoint '/boot/efi', allowing Ubuntu to
+                access files on the ESP partition after booting
+              </li>
+            </ul>
+
+            <h4>What happens when you click "Install Now"</h4>
+            <ul>
+              <li>
+                a bootloader is added to your EFI system partition by Ubuntu
+              </li>
+              <li>
+                a UEFI boot menu entry is added, pointing at the newly added
+                bootloader in your ESP
+              </li>
+              <li>
+                grub configuration files are installed to /boot, along with
+                linux kernel and initramfs
+              </li>
+            </ul>
+
+            <h2>Partitioning Setup End Result</h2>
+
+            <span class="image main"
+              ><img
+                src="../images/basics/partition_01.png"
+                alt="basic partitioning end result"
+            /></span>
+
+            <p>
+              This is just an example. The partition names (e.g. "sda1") may not
+              match yours. "sda" refers to the first storage device that is
+              detected (as opposed to "sdb", "sdc", ...) . sda1 refers to the
+              first partition of the first storage device (as opposed to "sda2",
+              "sda3", ...).
+            </p>
+
+            <ul>
+              <li>
+                vfat partition is your ESP partition
+              </li>
+              <li>
+                ntfs partition(s) belong to Windows
+              </li>
+              <li>
+                the
+                <a href="https://wiki.archlinux.org/index.php/swap#Swap_space"
+                  >swap</a
+                >
+                partition, in simple terms, allows data (process memory, files,
+                cache) normally residing in RAM to be 'swapped' to the swap
+                area, thus extending the RAM space
+              </li>
+              <li>
+                ext4 partition is used for storing your Ubuntu (Linux) files
+                (root partition)
+              </li>
+            </ul>
+
+            <span>
+              Ubuntu requires 2 partitions minimally, in total:
+            </span>
+
+            <ul>
+              <li>
+                one EFI system partition (/boot/efi)
+              </li>
+              <li>
+                one root mountpoint (/)
+              </li>
+            </ul>
+
+            <h4>EFI system partition (ESP)</h4>
+            <ul>
+              <li>
+                vfat filesystem type (otherwise fat12, fat16, fat32)
+              </li>
+              <li>
+                '/boot/efi' mountpoint, usually (there exist other possible
+                mountpoints)
+              </li>
+              <li>
+                if Windows is already installed, re-use the existing ESP that
+                came along with Windows. Ubuntu will install its bootloader
+                alongside Window's
+              </li>
+              <li>
+                for Ubuntu and some other Linux distros, the installer will
+                auto-detect (and auto-mount) the ESP for you. You might not have
+                to worry about the ESP or bootloader at all
+              </li>
+            </ul>
+
+            <h4>'/' (root) mountpoint</h4>
+            <ul>
+              <li>
+                ext4 filesystem type
+              </li>
+              <li>
+                '/' mountpoint
+              </li>
+              <li>
+                ensure that the correct physical partition has been selected.
+                The installer will reset all data on this partition
+              </li>
+            </ul>
+
+            <hr class="major" />
+
+            <h2 id="additional-info">Additional Info</h2>
+            <ol>
+              <li>
+                UEFI launches
+                <a
+                  href="https://wiki.archlinux.org/index.php/Arch_boot_process#UEFI"
+                  >EFI applications</a
+                >, which includes more than just bootloaders. UEFI firmware is
+                capable of loading the Linux kernel directly as an executable
+                into RAM. See
+                <a href="https://wiki.archlinux.org/index.php/EFISTUB"
+                  >EFISTUB</a
+                >
+                for more info.
+              </li>
+            </ol>
+
+            <h2>References</h2>
+            <ol>
+              <li>
+                <a href="https://wiki.archlinux.org/index.php/Arch_boot_process"
+                  >ArchWiki - Arch Boot Process</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface"
+                  >ArchWiki - UEFI</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://wiki.archlinux.org/index.php/Arch_boot_process#Boot_loader"
+                  >ArchWiki -Bootloader</a
+                >
+              </li>
+              <li>
+                <a href="https://wiki.archlinux.org/index.php/GRUB"
+                  >ArchWiki - GRUB bootloader</a
+                >
+              </li>
+              <li>
+                <a href="https://wiki.gentoo.org/wiki/GRUB2"
+                  >Gentoo Wiki - GRUB bootloader</a
+                >
+              </li>
+
+              <li>
+                <a
+                  href="https://wiki.archlinux.org/index.php/EFI_system_partition"
+                  >ArchWiki - EFI system partition (ESP)</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.happyassassin.net/posts/2014/01/25/uefi-boot-how-does-that-actually-work-then/"
+                  >AdamW - UEFI</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface"
+                  >Wikipedia - UEFI</a
+                >
+              </li>
+            </ol>
+
+            <h2>Final Notes</h2>
+            <p>
+              These guides are targeted mostly at newcomers to Linux. The
+              extensive use of illustrations is something I find most other
+              guides lack. I would appreciate any feedback, and corrections if I
+              have made any mistakes. Apologies in advance if I have!
+            </p>
+            <p>
+              Email:
+              <br />
+              sky100aw@gmail.com
+            </p>
+          </section>
+        </div>
+      </div>
+
+      <!-- SIDE BAR STARTS BELOW -->
+      <!-- SIDE BAR STARTS BELOW -->
+      <!-- SIDE BAR STARTS BELOW -->
+
+      <!-- Sidebar -->
+      <div id="sidebar">
+        <div class="inner">
+          <!-- Menu -->
+          <nav id="menu">
+            <header class="major">
+              <h2>Menu</h2>
+            </header>
+            <ul>
+              <li><a href="../index.html">Homepage</a></li>
+              <li>
+                <span class="opener">
+                  <a
+                    href=""
+                    class="icon solid fa-cat"
+                    style="
+                      display: inline;
+                      font-size: 20px;
+                      margin-right: 10px;
+                    "
+                  ></a>
+                  Basics
+                </span>
+
+                <ul>
+                  <li>
+                    <a href="../basics/installation_boot.html">Boot</a>
+                  </li>
+                  <li>
+                    <a href="../basics/boot_UEFI.html">Boot UEFI</a>
+                  </li>
+                  <li>
+                    <a href="../basics/boot_BIOS.html">Boot BIOS</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <span class="opener">
+                  <a
+                    href=""
+                    class="icon solid fa-horse"
+                    style="
+                      display: inline;
+                      font-size: 18px;
+                      margin-right: 10px;
+                    "
+                  ></a>
+                  General
+                </span>
+
+                <ul>
+                  <li>
+                    <a href=""></a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <span class="opener">
+                  <a
+                    href=""
+                    class="icon solid fa-dragon"
+                    style="
+                      display: inline;
+                      font-size: 16px;
+                      margin-right: 10px;
+                    "
+                  ></a>
+                  Systems
+                </span>
+
+                <ul>
+                  <li>
+                    <a href=""></a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <span class="opener">
+                  <a
+                    href=""
+                    class="icon solid fa-plus"
+                    style="
+                      display: inline;
+                      font-size: 22px;
+                      margin-right: 10px;
+                    "
+                  ></a>
+                  Others
+                </span>
+
+                <ul>
+                  <li>
+                    <a href=""></a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+
+          <!-- Footer -->
+          <footer id="footer">
+            <p class="copyright">
+              &copy; Untitled. All rights reserved. Demo Images:
+              <a href="https://unsplash.com">Unsplash</a>. Design:
+              <a href="https://html5up.net">HTML5 UP</a>.
+            </p>
+          </footer>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+  </body>
+</html>
