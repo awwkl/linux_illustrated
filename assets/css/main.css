@@ -2542,7 +2542,7 @@ button:disabled,
   -webkit-transition: margin-left 0.5s ease, box-shadow 0.5s ease;
   -ms-transition: margin-left 0.5s ease, box-shadow 0.5s ease;
   transition: margin-left 0.5s ease, box-shadow 0.5s ease;
-  background-color: #c8c8c8;
+  background-color: #323232;
   font-size: 0.9em;
   position: relative;
   width: 26em;
@@ -2569,7 +2569,7 @@ button:disabled,
   padding-bottom: 0;
 }
 #sidebar > .inner > .alt {
-  background-color: #c3c3c3;
+  background-color: #2d2d2d;
   border-bottom: 0;
   margin: -2.2222222222em 0 4.4444444444em -2.2222222222em;
   padding: 2.2222222222em;
@@ -2861,7 +2861,11 @@ button:disabled,
 }
 
 /* Menu */
+#menu .major > h2 {
+  color: #b4b4b4 !important;
+}
 #menu ul {
+  color: #b4b4b4 !important;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -2873,14 +2877,13 @@ button:disabled,
   list-style: none;
   margin-bottom: 0;
   padding: 0;
-  text-transform: uppercase;
 }
 #menu ul a, #menu ul span {
   border-bottom: 0;
   color: inherit;
   cursor: pointer;
   display: block;
-  font-size: 0.9em;
+  font-size: 1.4em;
   padding: 0.625em 0;
 }
 #menu ul a:hover, #menu ul span:hover {
@@ -2941,7 +2944,7 @@ button:disabled,
   padding-left: 1em;
 }
 #menu > ul > li > ul a, #menu > ul > li > ul span {
-  font-size: 0.8em;
+  font-size: 1.1em;
 }
 #menu > ul > li > ul > li {
   margin: 0.125em 0 0 0;
