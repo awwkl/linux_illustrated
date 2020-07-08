@@ -13,7 +13,7 @@
       content="width=device-width, initial-scale=1, user-scalable=no"
     />
     <link rel="stylesheet" href="../assets/css/main.css" />
-    <link rel="icon" href="../images/icons/linux_penguin.svg">
+    <link rel="icon" href="../images/icons/coffee_cup.svg" />
   </head>
   <body class="is-preload">
     <!-- Wrapper -->
@@ -55,7 +55,6 @@
           <!-- Content -->
           <section>
             <header class="main">
-              <h2>Basics/</h2>
               <h1>UEFI Boot Process</h1>
             </header>
 
@@ -84,12 +83,12 @@
               article to piece the puzzle together.
             </p>
             <span class="image main"
-              ><img src="../images/basics/uefi_flow_of_control.png" alt="UEFI flow of control"
-			/></span>
-			
-			<p>
-				
-			</p>
+              ><img
+                src="../images/basics/uefi_flow_of_control.png"
+                alt="UEFI flow of control"
+            /></span>
+
+            <p></p>
 
             <hr class="major" />
 
@@ -120,11 +119,11 @@
               <li>
                 each UEFI boot menu entry points to a bootloader, usually found
                 in an EFI system partition.
-			  </li>
-              <li>a successor to 
-				  <a href="https://en.wikipedia.org/wiki/BIOS"
-				>BIOS</a</li>
-			  
+              </li>
+              <li>
+                a successor to
+                <a href="https://en.wikipedia.org/wiki/BIOS">BIOS</a>
+              </li>
             </ul>
 
             <h4 style="display: inline;">EFI system partition (ESP)</h4>
@@ -181,9 +180,9 @@
                 the different filesystem types are different ways of organizing
                 your data
               </li>
-			</ul>
-			
-			<h4 style="display: inline;">Linux Kernel</h4>
+            </ul>
+
+            <h4 style="display: inline;">Linux Kernel</h4>
             <a
               href="https://www.redhat.com/en/topics/linux/what-is-the-linux-kernel"
               class="icon solid fa-link"
@@ -195,14 +194,16 @@
                 the core of the operating system
               </li>
               <li>
-                responsible for CPU scheduling, memory management, process management, filesystem management, device management, networking
+                responsible for CPU scheduling, memory management, process
+                management, filesystem management, device management, networking
               </li>
               <li>
-                executable file that is loaded into RAM during boot process
+                executable image file that is loaded into RAM during boot
+                process
               </li>
-			</ul>
-			
-			<h4 style="display: inline;">Initramfs</h4>
+            </ul>
+
+            <h4 style="display: inline;">Initramfs</h4>
             <a
               href="https://wiki.gentoo.org/wiki/Initramfs/Guide"
               class="icon solid fa-link"
@@ -214,7 +215,29 @@
                 initial ram-based filesystem (init-ram-fs)
               </li>
               <li>
-                tools and scripts for mounting the root filesystem, which contains your files and directories and rest of the operating system
+                contains tools and scripts for mounting the root filesystem,
+                which contains your files and directories and rest of the
+                operating system
+              </li>
+            </ul>
+
+            <h4 style="display: inline;">init</h4>
+            <a
+              href="https://wiki.archlinux.org/index.php/Init"
+              class="icon solid fa-link"
+              ><span class="label">init</span></a
+            >
+
+            <ul>
+              <li>
+                the first process, executed by the kernel
+              </li>
+              <li>
+                process ID (PID) of 1, parent/ancestor of all other processes
+              </li>
+              <li>
+                launches init scripts and other processes for system, service
+                and resource management
               </li>
             </ul>
 
@@ -233,19 +256,14 @@
               <li>
                 allows read/write of files stored on the partition from that
                 mountpoint
-			  </li>
-			  <li>
-                see my article on <a href="mounting.html">mounting</a>
               </li>
+              <li>see my article on <a href="mounting.html">mounting</a></li>
             </ul>
 
             <h4>Bootloader</h4>
             <ul>
               <li>
-                loads the kernel (the core of the operating system) into RAM and
-              </li>
-              <li>
-                loads the initial ram-based filesystem (initramfs) into RAM
+                loads the kernel and initramfs into RAM
               </li>
             </ul>
 
@@ -255,12 +273,14 @@
                 Ubuntu's default bootloader (there are alternative bootloaders)
               </li>
               <li>
-				<strong>grubx64.efi</strong> => located on the EFI system partition, and is the 
-				bootloader binary executable file that is executed by UEFI
+                <strong>grubx64.efi</strong> => located on the EFI system
+                partition, and is the bootloader binary executable file that is
+                executed by UEFI
               </li>
               <li>
-				<strong>grub.cfg</strong> => located in /boot directory, and is the configuration file
-				 used to change options (configurations) for the grub bootloader, 
+                <strong>grub.cfg</strong> => located in /boot directory, and is
+                the configuration file used to change options (configurations)
+                for the grub bootloader,
               </li>
             </ul>
 
@@ -270,8 +290,8 @@
                 contains Windows bootloader
               </li>
               <li>
-                contains Ubuntu bootloader (grubx64.efi), which is responsible for loading
-                Ubuntu's linux kernel and initramfs
+                contains Ubuntu bootloader (grubx64.efi), which is responsible
+                for loading Ubuntu's linux kernel and initramfs
               </li>
               <li>
                 usually mounted at mountpoint '/boot/efi', allowing Ubuntu to
@@ -279,10 +299,10 @@
               </li>
             </ul>
 
-            <h4>What happens when you click "Install Now"</h4>
+            <h4>What happens when you click "Install Now" (e.g. Ubuntu)</h4>
             <ul>
               <li>
-                a bootloader is added to your EFI system partition by Ubuntu
+                a bootloader is added to your EFI system partition
               </li>
               <li>
                 a UEFI boot menu entry is added, pointing at the newly added
@@ -311,24 +331,21 @@
             </p>
 
             <ul>
+              <li><strong>vfat</strong> partition is your ESP partition</li>
+              <li><strong>ntfs</strong> partition(s) belong to Windows</li>
               <li>
-                vfat partition is your ESP partition
+                <strong>
+                  <a href="https://wiki.archlinux.org/index.php/swap#Swap_space"
+                    >swap</a
+                  >
+                </strong>
+                partition, in simple terms, allows data normally held in RAM
+                (process memory, files, cache) to be 'swapped' to the swap area,
+                acting as an extension of RAM
               </li>
               <li>
-                ntfs partition(s) belong to Windows
-              </li>
-              <li>
-                the
-                <a href="https://wiki.archlinux.org/index.php/swap#Swap_space"
-                  >swap</a
-                >
-                partition, in simple terms, allows data (process memory, files,
-                cache) normally residing in RAM to be 'swapped' to the swap
-                area, thus extending the RAM space
-              </li>
-              <li>
-                ext4 partition is used for storing your Ubuntu (Linux) files
-                (root partition)
+                <strong>ext4</strong> partition is used for storing your Ubuntu
+                (Linux) files (root partition)
               </li>
             </ul>
 
@@ -383,21 +400,89 @@
             <hr class="major" />
 
             <h2 id="additional-info">Additional Info</h2>
-            <ol>
+      
+            <h4>UEFI vs BIOS</h4>
+            <ul>
+              <li>
+                UEFI and BIOS are types of firmware, software that is built into the computer/motherboard
+              </li>
+              <li>  
+                UEFI is regarded as the successor of BIOS
+              </li>
+              <li>
+                Read <a href="http://www.rodsbooks.com/linux-uefi/">rodsbooks guide on UEFI</a>
+              </li>
+            </ul>
+
+            <h4>EFI applications</h4>
+            <ul>
               <li>
                 UEFI launches
-                <a
-                  href="https://wiki.archlinux.org/index.php/Arch_boot_process#UEFI"
-                  >EFI applications</a
-                >, which includes more than just bootloaders. UEFI firmware is
-                capable of loading the Linux kernel directly as an executable
-                into RAM. See
-                <a href="https://wiki.archlinux.org/index.php/EFISTUB"
-                  >EFISTUB</a
-                >
-                for more info.
+              <a
+                href="https://wiki.archlinux.org/index.php/Arch_boot_process#UEFI"
+                >EFI applications</a
+              >, which includes more than just bootloaders. UEFI firmware is
+              capable of loading the Linux kernel directly as an executable
+              into RAM. See
+              <a href="https://wiki.archlinux.org/index.php/EFISTUB"
+                >EFISTUB</a
+              >
+              for more info.
               </li>
-            </ol>
+            </ul>
+
+            <h4>Boot loader vs Boot manager?</h4>
+            <ul>
+              <li>
+                A boot loader loads the kernel into
+                memory and executes it. 
+              </li>
+              <li>  
+                A boot manager hands off control to another boot program, or to a kernel that can load itself
+              </li>
+            </ul>
+
+            <h4>Fallback (or default) boot path</h4>
+            <ul>
+              <li>
+                bugs in the UEFI firmware may cause boot menu entries stored on the NVRAM on motherboard to be damaged or deleted
+              </li>
+              <li>  
+                a boot loader/manager can be installed to the fallback path on a storage disk (usually /EFI/boot/bootx64.efi on the ESP partition)
+              </li>
+              <li>
+                as long as the UEFI can detect the disk is plugged in, it can try to launch whatever is stored at this path
+              </li>
+              <li>
+                Useful for creating portable Linux operating systems on an external SSD. Plug it into a different computer that is UEFI-capable, 
+                when it detects the disk, boot off the fallback path, without needing to add a UEFI boot menu entry (commonly done in installation stage)   
+              </li>
+              <li>
+                Below is my ESP, mounted at '/efi'. It contains Arch Linux bootloader (arch), fallback bootloader (/efi/EFI/Boot/bootx64.efi), 
+                Windows boot directories, rEFInd boot manager (refind), Ubuntu boot loader (ubuntu)
+              </li>
+            </ul>
+              
+            <span class="image main"
+            ><img src="../images/basics/fallback_path.png" alt=""
+            /></span>
+              
+            <h4>Secure Boot</h4>
+            <ul>
+              <li>
+                sign EFI application (bootloader/kernel) with cryptographic signature
+              </li>
+              <li>  
+                store signed keys in UEFI firmware
+              </li>
+              <li>
+                enable secure boot, ensuring only signed EFI applications with corresponding key in firmware can be booted
+              </li>
+              <li>
+                Read <a href="http://www.rodsbooks.com/efi-bootloaders/secureboot.html">rodsbooks page on Secure Boot</a>
+              </li>
+            </ul>
+            
 
             <h2>References</h2>
             <ol>
@@ -445,6 +530,18 @@
                 <a
                   href="https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface"
                   >Wikipedia - UEFI</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.rodsbooks.com/linux-uefi/"
+                  >UEFI Guide - rodsbooks</a
+                >
+              </li>
+              <li>
+                <a
+                  href="http://www.rodsbooks.com/refind/"
+                  >rEFInd boot manager - rodsbooks</a
                 >
               </li>
             </ol>
@@ -575,7 +672,7 @@
               <a href="https://unsplash.com">Unsplash</a>. Design:
               <a href="https://html5up.net">HTML5 UP</a>.
               <br />
-              Star icon by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a>
+              Coffee cup icon made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> 
             </p>
           </footer>
         </div>
