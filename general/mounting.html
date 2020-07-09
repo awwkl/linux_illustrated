@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>Linux Illustrated - Mounting</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="icon" href="../images/icons/coffee_cup.svg" />
+  </head>
+  <body class="is-preload">
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Main -->
+      <div id="main">
+        <div class="inner" id="article-inner">
+          <!-- Header -->
+          <header id="header">
+            <a href="../index.html" class="logo"
+              ><strong>Linux</strong> Illustrated</a
+            >
+            <ul class="icons">
+              <li>
+                <a href="../topics.html" class="icon solid fa-cat"
+                  ><span class="label">Basics</span></a
+                >
+              </li>
+
+              <li>
+                <a href="../topics.html" class="icon solid fa-horse"
+                  ><span class="label">General</span></a
+                >
+              </li>
+
+              <li>
+                <a href="../topics.html" class="icon solid fa-dragon"
+                  ><span class="label">Systems</span></a
+                >
+              </li>
+              <li>
+                <a href="../topics.html" class="icon solid fa-plus"
+                  ><span class="label">Others</span></a
+                >
+              </li>
+            </ul>
+          </header>
+
+          <!-- Content -->
+          <section>
+            <header class="main">
+              <h1>Mounting</h1>
+            </header>
+
+            <h2>Introduction</h2>
+
+            <p>
+              This article provides:
+            </p>
+            <ul>
+              <li>
+                an illustration of disk mounting and partitions, with
+                explanations
+              </li>
+              <li>
+                a series of commands to depict how mounting and unmounting
+                really works
+              </li>
+            </ul>
+
+            <hr class="major" />
+
+            <h2>Illustration, with explanations</h2>
+
+            <span class="image main"
+              ><img src="../images/basics/mount_01.png" alt=""
+            /></span>
+
+            <h4 style="display: inline;">Mounting</h4>
+            <a
+              href="https://wiki.archlinux.org/index.php/file_systems#Mount_a_file_system"
+              class="icon solid fa-link"
+            ></a>
+            <ul>
+              <li>
+                attach a disk partition (and its filesystem) at a specified
+                directory (mount point)
+              </li>
+              <li>
+                allows read/write of files stored on the partition from that
+                directory (mount point)
+              </li>
+              <li>
+                Many people commonly refer to a disk partition by its device
+                file (e.g. /dev/sda4), such as "please mount /dev/sda4" or
+                "/dev/sda4 is your root partition" or "/dev/sda4 has the size 50
+                GiB". A device file is an interface to the device driver that
+                appears in a file system as if it were an ordinary file. A
+                device driver itself acts as the software interface between the
+                kernel/OS and the hardware device. [kernel &lt;=&gt; device file
+                &lt;=&gt; device driver &lt;=&gt; hardware device].
+              </li>
+            </ul>
+
+            <h4 style="display: inline;">Root partition</h4>
+            <a
+              href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#theRootFilesystem"
+              class="icon solid fa-link"
+            ></a>
+            <ul>
+              <li>
+                The fourth physical partition of this disk, in this case.
+              </li>
+              <li>
+                Mounted at "/" (root directory), as the root filesystem for the
+                operating system (OS). Root directory is the root (or the base)
+                of the OS, and will contain sub-directories and files required
+                for boot, repair, and operation, i.e. executable binaries
+                (/bin), configuration (/etc), libraries (/lib), and more.
+              </li>
+            </ul>
+
+            <h4 style="display: inline;">
+              ESP - EFI system partition (/dev/sda3)
+            </h4>
+            <a
+              href="https://wiki.archlinux.org/index.php/EFI_system_partition"
+              class="icon solid fa-link"
+            ></a>
+            <ul>
+              <li>
+                The third physical partition of this disk, in this case.
+              </li>
+              <li>
+                Mounted at "/boot/efi" in the above diagram. Common alternative
+                mount points for the ESP include "/efi" and "/boot".
+              </li>
+              <li>
+                See
+                <a href="../basics/boot_UEFI.html#EFI_system_partition"
+                  >my article on UEFI boot process</a
+                >
+                for more information on EFI system partitions.
+              </li>
+            </ul>
+
+            <h4>Physical partition vs Mount point vs Device file</h4>
+            <ul>
+              <li>
+                Take a moment to note the distinction between the three.
+              </li>
+              <li>
+                A physical partition is a section (partition) of the disk.
+                Partitioning allows neat dividing of the disk into segments,
+                with each partition having its own filesystem and metadata.
+              </li>
+              <li>
+                A mount point is a directory that you have chosen to attach a
+                disk partition to. After attaching the ESP to "/boot/efi", you
+                can view the directories and files on the ESP, and create
+                directories and write files on the ESP. If you mount the ESP at
+                "/efi" instead, you will access the ESP from "/efi" instead.
+              </li>
+              <li>
+                A device file is used for communication between the kernel/OS
+                and device drivers. Device files are usually automatically
+                created and handled by the kernel/OS. Do not worry about them.
+              </li>
+            </ul>
+
+            <hr class="major" />
+
+            <h2>
+              Let me explain mounting and unmounting with a series of
+              commands...
+            </h2>
+
+            <ul>
+              <li>
+                Below, I will mount and unmount the ESP repeatedly, creating
+                files at its mountpoint directory, to illustrate how everything
+                works.
+              </li>
+              <li>
+                At any point, if you need a visual model of the filesystem
+                hierarchy, partitions, or mounting, look at the first image on
+                this page above.
+              </li>
+              <li>
+                Let's start...
+              </li>
+            </ul>
+            <p>
+              <code>lsblk -f</code> is used to display block devices and
+              filesystems. We can see that the ESP is mounted at "/efi"
+              currently. <code>tree -L 2 /efi</code> is used to display data,
+              with directory depth of 2.
+            </p>
+            <span class="image main"
+              ><img src="../images/general/mount_01.png" alt=""
+            /></span>
+            <span class="image main"
+              ><img src="../images/general/mount_02.png" alt=""
+            /></span>
+
+            <p>
+              <code>umount /efi</code> or <code>umount /dev/sda1</code> is used
+              to unmount the ESP. We see that the partition is no longer
+              mounted. We can no longer access data stored on the ESP.
+            </p>
+            <span class="image main"
+              ><img src="../images/general/mount_03.png" alt=""
+            /></span>
+            <span class="image main"
+              ><img src="../images/general/mount_04.png" alt=""
+            /></span>
+
+            <p>
+              <code>mkdir</code> and <code>touch</code> are used to create some
+              random directories and files in /efi. Because the ESP (/dev/sda3)
+              is no longer mounted, they will be created on the root partition
+              (/dev/sda4), i.e. we can no longer read or write from the ESP
+              partition.
+            </p>
+
+            <span class="image main"
+              ><img src="../images/general/mount_05.png" alt=""
+            /></span>
+
+            <p>
+              <code>mount</code> now mounts the ESP (/dev/sda3) back at /efi. We
+              use <code>tree</code> to inspect the contents of the directory
+              "/efi". We see that the ESP's files are now back at "/efi"! When
+              we access the directory "/efi", or any of the files under "/efi",
+              the system realizes that the ESP (/dev/sda3) is mounted at "/efi",
+              and redirects us to read and write from the ESP. The root of the
+              ESP filesystem is attached to the directory "/efi".
+            </p>
+            <span class="image main"
+              ><img src="../images/general/mount_06.png" alt=""
+            /></span>
+
+            <p>
+              Using <code>umount /efi</code>, we unmount the ESP again!!! Lo and
+              behold, using <code>tree</code>, we find that the random
+              directories and files we created earlier are still there! In
+              essence, they were <em>masked</em> when we mounted the ESP at
+              "/efi" <em>over</em> them. They could not be accessed as any
+              reference to files/directories in "/efi" would instead access from
+              the ESP.
+            </p>
+            <span class="image main"
+              ><img src="../images/general/mount_07.png" alt=""
+            /></span>
+
+            <p>
+              Now let's clean up the random directories and files we created
+              earlier, and remount the ESP so everything is back to normal :)
+            </p>
+            <span class="image main"
+              ><img src="../images/general/mount_08.png" alt=""
+            /></span>
+
+            <h2>Conclusion</h2>
+            <p>
+              Mounting really is just attaching a disk partition to a particular
+              directory in the filesystem hierarchy.
+            </p>
+            <p>
+              You can mount your Windows or other Linux partitions to read and
+              write files from them. You can <em>mask</em> files under a
+              directory by mounting a partition at the same directory. You can
+              boot into a live USB and mount your Linux OS for boot repair, and
+              downgrade kernels or other packages.
+            </p>
+
+            <hr class="major" />
+
+            <h2 id="additional-info">Additional Info</h2>
+
+            <h4>Filesystems?</h4>
+            <ul>
+              <li>
+                organizes data (files, directories, etc.) stored on a device
+                partition
+              </li>
+              <li>
+                allows data to be interpreted in a logical manner, rather than
+                just looking like random 0s and 1s
+              </li>
+              <li>
+                the different filesystem types are different ways of organizing
+                your data
+              </li>
+            </ul>
+
+            <h4 style="display: inline;">
+              Chroot? (change root)
+            </h4>
+            <a
+              href="https://wiki.archlinux.org/index.php/Chroot"
+              class="icon solid fa-link"
+            ></a>
+            <ul>
+              <li>
+                changes the apparent root directory, or the directory that the
+                system <em>thinks</em> is the root directory
+              </li>
+              <li>
+                <code>mount /dev/sdXn /mnt</code> followed by
+                <code>chroot /mnt</code> are often used to mount, then chroot
+                into a different partition, /dev/sdXn (e.g. /dev/sdb3)
+              </li>
+              <li>
+                once you enter the chroot of /mnt, you can visualize it as if
+                you are <em>standing</em> at the root of the newly mounted
+                partition
+              </li>
+              <li>
+                modifies pathname lookups for absolute pathnames (e.g. "/" =>
+                "/mnt", and "/efi/EFI/ubuntu" => "/mnt/efi/EFI/ubuntu")
+              </li>
+              <li>
+                Let's pretend you mount and chroot into a separate partition
+                containing a Linux OS and filesystem hierarchy. When you execute
+                commands, it will execute binaries (/bin) and use libraries
+                (/lib) located on the newly chrooted partition, i.e. (/bin/ls is
+                really referencing /mnt/bin/ls).
+              </li>
+            </ul>
+
+            <h2>References</h2>
+            <ol>
+              <li>
+                <a href="https://wiki.archlinux.org/index.php/file_systems#Mount_a_file_system"
+                  >ArchWiki - Filesystem (Mounting)</a
+                >
+              </li>
+
+              <li>
+                <a href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#theRootFilesystem"
+                  >Filesystem Hierarchy Standard - Root filesystem</a
+                >
+              </li>
+
+              <li>
+                <a href="https://wiki.archlinux.org/index.php/EFI_system_partition"
+                  >ArchWiki - EFI System Partition (ESP)</a
+                >
+              </li>
+
+              <li>
+                <a href="https://wiki.archlinux.org/index.php/Chroot"
+                  >ArchWiki - chroot</a
+                >
+              </li>
+
+              <li>
+                <a href="https://lwn.net/Articles/252794/"
+                  >LWN - "What chroot() is really for" by Jake Edge</a
+                >
+              </li>
+
+            </ol>
+
+            <h2>Final Notes</h2>
+            <p>
+              These guides are targeted mostly at newcomers to Linux. The
+              extensive use of illustrations is something I find most other
+              guides lack. I would appreciate any feedback, and corrections if I
+              have made any mistakes. Apologies in advance if I have!
+            </p>
+            <p>
+              Email:
+              <br />
+              sky100aw@gmail.com
+            </p>
+          </section>
+        </div>
+      </div>
+
+      <!-- SIDE BAR STARTS BELOW -->
+      <!-- SIDE BAR STARTS BELOW -->
+      <!-- SIDE BAR STARTS BELOW -->
+
+      <!-- Sidebar -->
+      <div id="sidebar">
+        <div class="inner">
+          <!-- Menu -->
+          <nav id="menu">
+            <header class="major">
+              <h2>Menu</h2>
+            </header>
+            <ul>
+              <li><a href="../index.html">Homepage</a></li>
+              <li>
+                <span class="opener">
+                  <a
+                    href=""
+                    class="icon solid fa-cat"
+                    style="
+                      display: inline;
+                      font-size: 20px;
+                      margin-right: 10px;
+                    "
+                  ></a>
+                  Basics
+                </span>
+
+                <ul>
+                  <li>
+                    <a href="../basics/boot.html">Boot</a>
+                  </li>
+                  <li>
+                    <a href="../basics/boot_UEFI.html">Boot UEFI</a>
+                  </li>
+                  <li>
+                    <a href="../basics/boot_BIOS.html">Boot BIOS</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <span class="opener">
+                  <a
+                    href=""
+                    class="icon solid fa-horse"
+                    style="
+                      display: inline;
+                      font-size: 18px;
+                      margin-right: 10px;
+                    "
+                  ></a>
+                  General
+                </span>
+
+                <ul>
+                  <li>
+                    <a href="../general/mounting.html">Mounting</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <span class="opener">
+                  <a
+                    href=""
+                    class="icon solid fa-dragon"
+                    style="
+                      display: inline;
+                      font-size: 16px;
+                      margin-right: 10px;
+                    "
+                  ></a>
+                  Systems
+                </span>
+
+                <ul>
+                  <li>
+                    <a href=""></a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <span class="opener">
+                  <a
+                    href=""
+                    class="icon solid fa-plus"
+                    style="
+                      display: inline;
+                      font-size: 22px;
+                      margin-right: 10px;
+                    "
+                  ></a>
+                  Others
+                </span>
+
+                <ul>
+                  <li>
+                    <a href=""></a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+
+          <!-- Footer -->
+          <footer id="footer">
+            <p class="copyright">
+              &copy; Untitled. All rights reserved. Demo Images:
+              <a href="https://unsplash.com">Unsplash</a>. Design:
+              <a href="https://html5up.net">HTML5 UP</a>.
+              <br />
+              Coffee cup icon made by
+              <a href="https://www.flaticon.com/authors/freepik" title="Freepik"
+                >Freepik</a
+              >
+            </p>
+          </footer>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+# lsblk -f
+NAME    FSTYPE FSVER  LABEL  UUID                                 FSAVAIL FSUSE% MOUNTPOINT
+sda                                                                                 
+├─sda1 	vfat   FAT32  ESP    0EA6-F88B                              59.5M    59% /efi
+├─sda2  swap   1             8e3ea33c-f004-4ed1-af62-ad6cbbf6d226                [SWAP]
+├─sda3  ext4   1.0           a31b01a2-30f2-49d4-aef4-ca75ec8fa6cf   22.7G    78% /
+
+
+# lsblk -f
+NAME    FSTYPE FSVER  LABEL  UUID                                 FSAVAIL FSUSE% MOUNTPOINT
+sda                                                                                 
+├─sda1 	vfat   FAT32  ESP    0EA6-F88B                              59.5M    59% 
+├─sda2  swap   1             8e3ea33c-f004-4ed1-af62-ad6cbbf6d226                [SWAP]
+├─sda3  ext4   1.0           a31b01a2-30f2-49d4-aef4-ca75ec8fa6cf   22.7G    78% /
+
+
