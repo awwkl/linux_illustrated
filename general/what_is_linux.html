@@ -6,14 +6,14 @@
 -->
 <html>
   <head>
-    <title>Linux Illustrated - BIOS Boot Process</title>
+    <title>Linux Illustrated - What is Linux?</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, user-scalable=no"
     />
     <link rel="stylesheet" href="../assets/css/main.css" />
-    <link rel="icon" href="../images/icons/coffee_cup.svg">
+    <link rel="icon" href="../images/icons/coffee_cup.svg" />
   </head>
   <body class="is-preload">
     <!-- Wrapper -->
@@ -29,13 +29,13 @@
             <ul class="icons">
               <li>
                 <a href="../topics.html" class="icon solid fa-cat"
-                  ><span class="label">Basics</span></a
+                  ><span class="label">General</span></a
                 >
               </li>
 
               <li>
                 <a href="../topics.html" class="icon solid fa-horse"
-                  ><span class="label">Background</span></a
+                  ><span class="label">Boot</span></a
                 >
               </li>
 
@@ -55,91 +55,69 @@
           <!-- Content -->
           <section>
             <header class="main">
-              <h1>BIOS Boot Process</h1>
+              <h1>What is Linux?</h1>
             </header>
 
-            <h2>Introduction</h2>
-
-            <p>
-              This article will outline the differences between the boot process
-              for UEFI (more common) and BIOS. See
-              <a href="../basics/boot_UEFI.html">previous article on UEFI</a>.
-            </p>
-            <ul>
-              <li>how Linux boots after turning on the power</li>
-              <li>differences in disk partitioning</li>
-            </ul>
+            <h2>This article is still a stub :(</h2>
 
             <hr class="major" />
 
-            <h2>This Article is a Work In Progress</h2>
+            <h2>"Everything in Linux is a file"</h2>
+            <p>
+              is probably the most important thing to keep in mind while
+              continuing to read this article. Everything is a file, from the
+              bootloader executable file, to the compressed kernel image, the
+              files in the filesystem hierarchy, and the system manager and user
+              software binaries, libraries, and configuration files.
+            </p>
+
+            <h2>Overview - 4 main components</h2>
+            <strong>
+              <ol>
+                <li>Bootloader</li>
+                <li>Kernel</li>
+                <li>Filesystem hierarchy (directory structure and files)</li>
+                <li>System manager and User packages</li>
+              </ol>
+            </strong>
 
             <p>
-              I will update the page with illustrations soon. For now, refer to:
-              <a href="https://wiki.archlinux.org/index.php/Arch_boot_process#Under_BIOS"
-                >BIOS Boot Process</a
-              >
+              The image below is from
+              <a href="../boot/boot_UEFI.html"
+                >my article on the UEFI boot process</a
+              >, where I explain the steps of booting, from power on to system
+              initialization. The image gives a big picture overview on how the
+              bootloader, kernel, and filesystem interact. The system manager
+              and user applications are just files (executables, libraries,
+              configurations) "scattered" across the different directories in the
+              filesystem.
             </p>
+
+            <p>
+              Now, I will describe the 4 main components of a Linux Operating
+              System (OS).
+            </p>
+
+            <span class="image main"
+              ><img src="../images/boot/boot_01.png" alt=""
+            /></span>
 
             <hr class="major" />
 
-            <h2>References</h2>
-            <ol>
-              <li>
-                <a href="https://wiki.archlinux.org/index.php/Arch_boot_process"
-                  >ArchWiki - Arch Boot Process</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface"
-                  >ArchWiki - UEFI</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://wiki.archlinux.org/index.php/Arch_boot_process#Boot_loader"
-                  >ArchWiki -Bootloader</a
-                >
-              </li>
-              <li>
-                <a href="https://wiki.archlinux.org/index.php/GRUB"
-                  >ArchWiki - GRUB bootloader</a
-                >
-              </li>
-              <li>
-                <a href="https://wiki.gentoo.org/wiki/GRUB2"
-                  >Gentoo Wiki - GRUB bootloader</a
-                >
-              </li>
+            <h2>1. Bootloader</h2>
 
-              <li>
-                <a
-                  href="https://wiki.archlinux.org/index.php/EFI_system_partition"
-                  >ArchWiki - EFI system partition (ESP)</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.happyassassin.net/posts/2014/01/25/uefi-boot-how-does-that-actually-work-then/"
-                  >AdamW - UEFI</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface"
-                  >Wikipedia - UEFI</a
-                >
-              </li>
-            </ol>
+            <h2>2. Kernel</h2>
+
+            <h2>3. Filesystem hierarchy</h2>
+
+            <h2>4. System manager and User Packages</h2>
 
             <h2>Final Notes</h2>
             <p>
-              This explanation of the Linux installation and boot process is
-              targeted at newcomers to Linux. The extensive use of illustrations
-              is something I find most other guides lack. I would appreciate any
-              feedback, and corrections if I have made any mistakes. Apologies
-              in advance if I have!
+              These guides are targeted mostly at newcomers to Linux. The
+              extensive use of illustrations is something I find most other
+              guides lack. I would appreciate any feedback, and corrections if I
+              have made any mistakes. Apologies in advance if I have!
             </p>
             <p>
               Email:
@@ -175,18 +153,14 @@
                       margin-right: 10px;
                     "
                   ></a>
-                  Basics
+                  General
                 </span>
-
                 <ul>
                   <li>
-                    <a href="../basics/boot.html">Boot</a>
+                    <a href="../general/what_is_linux.html">What Is Linux?</a>
                   </li>
                   <li>
-                    <a href="../basics/boot_UEFI.html">Boot UEFI</a>
-                  </li>
-                  <li>
-                    <a href="../basics/boot_BIOS.html">Boot BIOS</a>
+                    <a href="../general/mounting.html">Mounting</a>
                   </li>
                 </ul>
               </li>
@@ -201,15 +175,21 @@
                       margin-right: 10px;
                     "
                   ></a>
-                  General
+                  Boot
                 </span>
-
                 <ul>
                   <li>
-                    <a href="../general/mounting.html">Mounting</a>
+                    <a href="../boot/boot.html">Boot</a>
+                  </li>
+                  <li>
+                    <a href="../boot/boot_UEFI.html">Boot UEFI</a>
+                  </li>
+                  <li>
+                    <a href="../boot/boot_BIOS.html">Boot BIOS</a>
                   </li>
                 </ul>
               </li>
+
               <li>
                 <span class="opener">
                   <a
