@@ -108,8 +108,7 @@
             <a
               href="https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface"
               class="icon solid fa-link"
-              ></a
-            >
+            ></a>
 
             <ul>
               <li>
@@ -130,8 +129,7 @@
             <a
               href="https://en.wikipedia.org/wiki/EFI_system_partition"
               class="icon solid fa-link"
-              ></a
-            >
+            ></a>
 
             <ul>
               <li>
@@ -144,8 +142,7 @@
             <a
               href="https://wiki.archlinux.org/index.php/Partitioning"
               class="icon solid fa-link"
-              ></a
-            >
+            ></a>
 
             <ul>
               <li>
@@ -164,8 +161,7 @@
             <a
               href="https://wiki.archlinux.org/index.php/file_systems"
               class="icon solid fa-link"
-              ></a
-            >
+            ></a>
 
             <ul>
               <li>
@@ -186,8 +182,7 @@
             <a
               href="https://www.redhat.com/en/topics/linux/what-is-the-linux-kernel"
               class="icon solid fa-link"
-              ></a
-            >
+            ></a>
 
             <ul>
               <li>
@@ -207,8 +202,7 @@
             <a
               href="https://wiki.gentoo.org/wiki/Initramfs/Guide"
               class="icon solid fa-link"
-              ></a
-            >
+            ></a>
 
             <ul>
               <li>
@@ -225,8 +219,7 @@
             <a
               href="https://wiki.archlinux.org/index.php/Init"
               class="icon solid fa-link"
-              ></a
-            >
+            ></a>
 
             <ul>
               <li>
@@ -247,7 +240,7 @@
               ><img src="../images/boot/mount_01.png" alt=""
             /></span>
 
-            <h4>Mounting</h4>
+            <h4 class="no-margins">Mounting</h4>
             <ul>
               <li>
                 attach a storage device partition (and its filesystem) at a
@@ -257,17 +250,20 @@
                 allows read/write of files stored on the partition from that
                 mountpoint
               </li>
-              <li>see <a href="../general/mounting.html">my article on Mounting</a></li>
+              <li>
+                see
+                <a href="../general/mounting.html">my article on Mounting</a>
+              </li>
             </ul>
 
-            <h4>Bootloader</h4>
+            <h4 class="no-margins">Bootloader</h4>
             <ul>
               <li>
                 loads the kernel and initramfs into RAM
               </li>
             </ul>
 
-            <h4>Grub Bootloader</h4>
+            <h4 class="no-margins">Grub Bootloader</h4>
             <ul>
               <li>
                 Ubuntu's default bootloader (there are alternative bootloaders)
@@ -284,7 +280,9 @@
               </li>
             </ul>
 
-            <h4 id="EFI_system_partition">EFI System Partition (ESP)</h4>
+            <h4 class="no-margins" id="EFI_system_partition">
+              EFI System Partition (ESP)
+            </h4>
             <ul>
               <li>
                 contains Windows bootloader
@@ -299,7 +297,9 @@
               </li>
             </ul>
 
-            <h4>What happens when you click "Install Now" (e.g. Ubuntu)</h4>
+            <h4 class="no-margins">
+              What happens when you click "Install Now" (e.g. Ubuntu)
+            </h4>
             <ul>
               <li>
                 a bootloader is added to your EFI system partition
@@ -314,7 +314,7 @@
               </li>
             </ul>
 
-            <h2>Partitioning Setup End Result</h2>
+            <h2 class="no-margins">Partitioning Setup End Result</h2>
 
             <span class="image main"
               ><img
@@ -362,14 +362,15 @@
               </li>
             </ul>
 
-            <h4>EFI system partition (ESP)</h4>
+            <h4 class="no-margins">EFI system partition (ESP)</h4>
             <ul>
               <li>
-                vfat filesystem type (otherwise fat12, fat16, fat32)
+                <strong>vfat</strong> filesystem type (otherwise fat12, fat16,
+                fat32)
               </li>
               <li>
-                '/boot/efi' mountpoint, usually (there exist other possible
-                mountpoints)
+                <strong>'/boot/efi'</strong> mountpoint, usually (there exist
+                other possible mountpoints)
               </li>
               <li>
                 if Windows is already installed, re-use the existing ESP that
@@ -383,14 +384,10 @@
               </li>
             </ul>
 
-            <h4>'/' (root) mountpoint</h4>
+            <h4 class="no-margins">'/' (root) mountpoint</h4>
             <ul>
-              <li>
-                ext4 filesystem type
-              </li>
-              <li>
-                '/' mountpoint
-              </li>
+              <li><strong>ext4</strong> filesystem type</li>
+              <li><strong>'/'</strong> mountpoint</li>
               <li>
                 ensure that the correct physical partition has been selected.
                 The installer will reset all data on this partition
@@ -400,89 +397,107 @@
             <hr class="major" />
 
             <h2 id="additional-info">Additional Info</h2>
-      
-            <h4>UEFI vs BIOS</h4>
+
+            <h4 class="no-margins">UEFI vs BIOS</h4>
             <ul>
               <li>
-                UEFI and BIOS are types of firmware, software that is built into the computer/motherboard
+                UEFI and BIOS are types of firmware, software that is built into
+                the computer/motherboard
               </li>
-              <li>  
+              <li>
                 UEFI is regarded as the successor of BIOS
               </li>
               <li>
-                Read <a href="http://www.rodsbooks.com/linux-uefi/">rodsbooks guide on UEFI</a>
+                Read
+                <a href="http://www.rodsbooks.com/linux-uefi/"
+                  >rodsbooks guide on UEFI</a
+                >
               </li>
             </ul>
 
-            <h4>EFI applications</h4>
+            <h4 class="no-margins">EFI applications</h4>
             <ul>
               <li>
                 UEFI launches
-              <a
-                href="https://wiki.archlinux.org/index.php/Arch_boot_process#UEFI"
-                >EFI applications</a
-              >, which includes more than just bootloaders. UEFI firmware is
-              capable of loading the Linux kernel directly as an executable
-              into RAM. See
-              <a href="https://wiki.archlinux.org/index.php/EFISTUB"
-                >EFISTUB</a
-              >
-              for more info.
+                <a
+                  href="https://wiki.archlinux.org/index.php/Arch_boot_process#UEFI"
+                  >EFI applications</a
+                >, which includes more than just bootloaders. UEFI firmware is
+                capable of loading the Linux kernel directly as an executable
+                into RAM. See
+                <a href="https://wiki.archlinux.org/index.php/EFISTUB"
+                  >EFISTUB</a
+                >
+                for more info.
               </li>
             </ul>
 
-            <h4>Boot loader vs Boot manager?</h4>
+            <h4 class="no-margins">Boot loader vs Boot manager?</h4>
             <ul>
               <li>
-                A boot loader loads the kernel into
-                memory and executes it. 
+                A boot loader loads the kernel into memory and executes it.
               </li>
-              <li>  
-                A boot manager hands off control to another boot program, or to a kernel that can load itself
+              <li>
+                A boot manager hands off control to another boot program, or to
+                a kernel that can load itself
               </li>
             </ul>
 
-            <h4>Fallback (or default) boot path</h4>
+            <h4 class="no-margins">Fallback (or default) boot path</h4>
             <ul>
               <li>
-                bugs in the UEFI firmware may cause boot menu entries stored on the NVRAM on motherboard to be damaged or deleted
-              </li>
-              <li>  
-                a boot loader/manager can be installed to the fallback path on a storage disk (usually /EFI/boot/bootx64.efi on the ESP partition)
+                bugs in the UEFI firmware may cause boot menu entries stored on
+                the NVRAM on motherboard to be damaged or deleted
               </li>
               <li>
-                as long as the UEFI can detect the disk is plugged in, it can try to launch whatever is stored at this path
+                a boot loader/manager can be installed to the fallback path on a
+                storage disk (usually /EFI/boot/bootx64.efi on the ESP
+                partition)
               </li>
               <li>
-                Useful for creating portable Linux operating systems on an external SSD. Plug it into a different computer that is UEFI-capable, 
-                when it detects the disk, boot off the fallback path, without needing to add a UEFI boot menu entry (commonly done in installation stage)   
+                as long as the UEFI can detect the disk is plugged in, it can
+                try to launch whatever is stored at this path
               </li>
               <li>
-                Below is my ESP, mounted at '/efi'. It contains Arch Linux bootloader (arch), fallback bootloader (/efi/EFI/Boot/bootx64.efi), 
-                Windows boot directories, rEFInd boot manager (refind), Ubuntu boot loader (ubuntu)
+                Useful for creating portable Linux operating systems on an
+                external SSD. Plug it into a different computer that is
+                UEFI-capable, when it detects the disk, boot off the fallback
+                path, without needing to add a UEFI boot menu entry (commonly
+                done in installation stage)
+              </li>
+              <li>
+                Below is my ESP, mounted at '/efi'. It contains Arch Linux
+                bootloader (arch), fallback bootloader
+                (/efi/EFI/Boot/bootx64.efi), Windows boot directories, rEFInd
+                boot manager (refind), Ubuntu boot loader (ubuntu)
               </li>
             </ul>
-              
+
             <span class="image main"
-            ><img src="../images/boot/fallback_path.png" alt=""
+              ><img src="../images/boot/fallback_path.png" alt=""
             /></span>
-              
-            <h4>Secure Boot</h4>
+
+            <h4 class="no-margins">Secure Boot</h4>
             <ul>
               <li>
-                sign EFI application (bootloader/kernel) with cryptographic signature
+                sign EFI application (bootloader/kernel) with cryptographic
+                signature
               </li>
-              <li>  
+              <li>
                 store signed keys in UEFI firmware
               </li>
               <li>
-                enable secure boot, ensuring only signed EFI applications with corresponding key in firmware can be booted
+                enable secure boot, ensuring only signed EFI applications with
+                corresponding key in firmware can be booted
               </li>
               <li>
-                Read <a href="http://www.rodsbooks.com/efi-bootloaders/secureboot.html">rodsbooks page on Secure Boot</a>
+                Read
+                <a
+                  href="http://www.rodsbooks.com/efi-bootloaders/secureboot.html"
+                  >rodsbooks page on Secure Boot</a
+                >
               </li>
             </ul>
-            
 
             <h2>References</h2>
             <ol>
@@ -533,14 +548,12 @@
                 >
               </li>
               <li>
-                <a
-                  href="https://www.rodsbooks.com/linux-uefi/"
+                <a href="https://www.rodsbooks.com/linux-uefi/"
                   >rodsbooks - UEFI Guide</a
                 >
               </li>
               <li>
-                <a
-                  href="http://www.rodsbooks.com/refind/"
+                <a href="http://www.rodsbooks.com/refind/"
                   >rodsbooks - rEFInd boot manager</a
                 >
               </li>
@@ -674,7 +687,10 @@
               <a href="https://unsplash.com">Unsplash</a>. Design:
               <a href="https://html5up.net">HTML5 UP</a>.
               <br />
-              Coffee cup icon made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> 
+              Coffee cup icon made by
+              <a href="https://www.flaticon.com/authors/freepik" title="Freepik"
+                >Freepik</a
+              >
             </p>
           </footer>
         </div>
