@@ -58,48 +58,162 @@
               <h1>What is Linux?</h1>
             </header>
 
-            <h2>This article is still a stub :(</h2>
+            <h2>Introduction</h2>
+
+            <p>
+              This article will include:
+            </p>
+
+            <ol>
+              <li>
+                Introduction to GNU and Linux
+              </li>
+              <li>
+                Illustrations of Linux in a single diagram (main components)
+              </li>
+            </ol>
 
             <hr class="major" />
+
+            <span class="image main"
+              ><img src="../images/general/linux_01.png" alt=""
+            /></span>
+
+            <h2>Linux || GNU/Linux</h2>
+            <p>
+              An operating system (OS) is the software interface between a user
+              and computer hardware. It is an abstraction layer that allows
+              userspace programs (web browser, text editor, media player) to
+              avoid worrying about interacting with hardware (keyboard, screen,
+              CPU, RAM). The Linux kernel is mostly used in combination with the
+              GNU operating system. Thus, the GNU/Linux operating system (OS)
+              consists of the Linux kernel (the core of the operating system)
+              and GNU software packages.
+            </p>
+
+            <ol>
+              <li>
+                The <strong>Linux kernel</strong> is the core of the operating
+                system. It manages and allocates computer resources (CPU
+                scheduling, memory management, process management, filesystem
+                management, device management, networking, etc.)
+              </li>
+
+              <br />
+
+              <li>
+                <strong>GNU</strong> provides the rest of the operating system:
+                <ul>
+                  <li>
+                    Toolchain used for developing applications and operating
+                    systems, and compiling new source packages into binaries
+                    (gcc, glibc, binutils, make, ...). This includes the GNU
+                    Compiler Collection (gcc), the GNU C library (glibc), GNU
+                    Binutils (assembler for assembly programs, linker for object
+                    files, ...).
+                  </li>
+                  <li>
+                    Base system is a set of software packages used commonly in
+                    the GNU/Linux operating system. This includes bash (command
+                    shell program), GRUB (bootloader), coreutils (cd, cat, ls,
+                    rm, ...), and other utilities (tar, grep, sed, ...).
+                  </li>
+                </ul>
+              </li>
+
+              <li>
+                And then there are <strong>other software packages</strong>,
+                like web browsers and text editors. Perhaps surprising to some,
+                this also includes your graphical user interface (GUI), which
+                ultimately is just a set of packages. You can change your
+                desktop environment/window manager easily in Linux!
+              </li>
+            </ol>
+
+            <p>
+              Each distribution of GNU/Linux (Ubuntu, Debian, Fedora, Arch,
+              etc.) is a bundle of packages that can be 'distributed' as an
+              operating system, with slight differences in the kernel, GNU
+              packages, and other software packages. To most users, the main
+              difference will be the desktop environments and programs that are
+              shipped with the distribution. This allows the different
+              distributions to look so different.
+            </p>
 
             <h2>"Everything in Linux is a file"</h2>
             <p>
               is probably the most important thing to keep in mind while
-              continuing to read this article. Everything is a file, from the
-              bootloader executable file, to the compressed kernel image, the
-              files in the filesystem hierarchy, and the system manager and user
-              software binaries, libraries, and configuration files.
+              continuing to read this article. *Almost* everything is a file,
+              from the bootloader executable file, to the compressed kernel
+              image, the files in the filesystem hierarchy, and the system
+              manager and other software. This allows users/administrators to
+              have a great degree of flexibility. Almost everything can be
+              changed or added, simply by installing the desired software:
+              bootloader, kernel (yes even the kernel!!), desktop environment,
+              network manager, command shell, browser, and more.
             </p>
 
-            <h2>Overview - 4 main components</h2>
+            <hr class="major" />
+
+            <h2>Linux in a single diagram - 4 main components</h2>
             <strong>
               <ol>
                 <li>Bootloader</li>
                 <li>Kernel</li>
                 <li>Filesystem hierarchy (directory structure and files)</li>
-                <li>System manager and User packages</li>
+                <li>System manager and other packages</li>
               </ol>
             </strong>
 
             <p>
-              The image below is from
+              There are two images below. The first is from
               <a href="../boot/boot_UEFI.html"
                 >my article on the UEFI boot process</a
               >, where I explain the steps of booting, from power on to system
-              initialization. The image gives a big picture overview on how the
-              bootloader, kernel, and filesystem interact. The system manager
-              and user applications are just files (executables, libraries,
-              configurations) "scattered" across the different directories in the
-              filesystem.
+              initialization. The boot process can be summarized as:
             </p>
+            <ol>
+              <li>Power on</li>
+              <li>UEFI boot entry</li>
+              <li>Bootloader</li>
+              <li>Enter /boot</li>
+              <li>Kernel</li>
+              <li>
+                Root filesystem mounting, initialization scripts, and system
+                manager
+              </li>
+            </ol>
 
             <p>
-              Now, I will describe the 4 main components of a Linux Operating
-              System (OS).
+              Try and identify each step in the diagram below!
             </p>
 
             <span class="image main"
               ><img src="../images/boot/boot_01.png" alt=""
+            /></span>
+
+            <p>
+              This next image presents the components of Linux in a single
+              diagram. It provides an overview of how the bootloader, kernel,
+              and filesystem interact. The system manager and user applications
+              are just files - executables (in /bin), libraries (in /lib), configurations (in /etc) -
+              "scattered" across the different directories in the filesystem.
+            </p>
+
+            <p>
+              Identify in the diagram each of the 4 main components of a Linux Operating
+              System (OS):
+            </p>
+
+            <ol>
+              <li>Bootloader</li>
+              <li>Kernel</li>
+              <li>Filesystem hierarchy</li>
+              <li>System manager and user packages</li>
+            </ol>
+
+            <span class="image main"
+              ><img src="../images/general/linux_02.png" alt=""
             /></span>
 
             <hr class="major" />
@@ -111,6 +225,28 @@
             <h2>3. Filesystem hierarchy</h2>
 
             <h2>4. System manager and User Packages</h2>
+
+            <h2>References</h2>
+            <ol>
+              <li>
+                <a href="https://www.gnu.org/gnu/why-gnu-linux.en.html"
+                  >GNU - What's in a Name</a
+                >
+              </li>
+
+              <li>
+                <a href="https://www.gnu.org/gnu/linux-and-gnu.en.html"
+                  >GNU - Linux and the GNU System</a
+                >
+              </li>
+
+              <li>
+                <a
+                  href="https://wiki.gentoo.org/wiki/Complete_Handbook/What_is_Linux"
+                  >Gentoo Wiki - What is Linux?</a
+                >
+              </li>
+            </ol>
 
             <h2>Final Notes</h2>
             <p>

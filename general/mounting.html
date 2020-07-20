@@ -74,6 +74,13 @@
               </li>
             </ul>
 
+            <p>
+              All files in Linux are arranged in a tree hierarchy, rooted at
+              "/". Parts of this file hierarchy can be spread across separate
+              devices/partitions. Mounting is attaching a disk partition at a
+              particular point in this file hierarchy.
+            </p>
+
             <hr class="major" />
 
             <h2>Illustration, with explanations</h2>
@@ -89,22 +96,22 @@
             ></a>
             <ul>
               <li>
-                attach a disk partition (and its filesystem) at a specified
+                Attach a disk partition (and its filesystem) at a specified
                 directory (mount point)
               </li>
               <li>
-                allows read/write of files stored on the partition from that
-                directory (mount point)
+                Allows read/write of files stored on the partition from that
+                mount point.
+              </li>
+              <li>
+                e.g. <code>mount &nbsp; /dev/sda3 &nbsp; /boot/efi</code> will
+                mount the /dev/sda4 partition at the mountpoint "/boot/efi". The
+                files on that partition can now be accessed.
               </li>
               <li>
                 Many people commonly refer to a disk partition by its device
                 file (e.g. /dev/sda4), such as "please mount /dev/sda4" or
-                "/dev/sda4 is your root partition" or "/dev/sda4 has the size 50
-                GiB". A device file is an interface to the device driver that
-                appears in a file system as if it were an ordinary file. A
-                device driver itself acts as the software interface between the
-                kernel/OS and the hardware device. [kernel &lt;=&gt; device file
-                &lt;=&gt; device driver &lt;=&gt; hardware device].
+                "/dev/sda4 is your root partition".
               </li>
             </ul>
 
@@ -115,14 +122,11 @@
             ></a>
             <ul>
               <li>
-                The fourth physical partition of this disk, in this case.
+                The fourth partition of this disk, in this case.
               </li>
               <li>
-                Mounted at "/" (root directory), as the root filesystem for the
-                operating system (OS). Root directory is the root (or the base)
-                of the OS, and will contain sub-directories and files required
-                for boot, repair, and operation, i.e. executable binaries
-                (/bin), configuration (/etc), libraries (/lib), and more.
+                Mounted at "/" (root directory). Root directory is the root
+                (base) of the OS, and contains all other directories and files.
               </li>
             </ul>
 
@@ -135,28 +139,30 @@
             ></a>
             <ul>
               <li>
-                The third physical partition of this disk, in this case.
+                The third partition of this disk, in this case.
               </li>
               <li>
                 Mounted at "/boot/efi" in the above diagram. Common alternative
                 mount points for the ESP include "/efi" and "/boot".
               </li>
               <li>
+                The ESP stores a bootloader required for the boot process. It
+                can be mounted so that you can access its files or update it.
                 See
                 <a href="../boot/boot_UEFI.html#EFI_system_partition"
-                  >my article on UEFI boot process</a
+                  >my article on the UEFI boot process</a
                 >
                 for more information on EFI system partitions.
               </li>
             </ul>
 
-            <h4>Physical partition vs Mount point vs Device file</h4>
+            <h4>Disk partition vs Mount point vs Device file</h4>
             <ul>
               <li>
                 Take a moment to note the distinction between the three.
               </li>
               <li>
-                A physical partition is a section (partition) of the disk.
+                A disk partition is a section (partition) of the disk.
                 Partitioning allows neat dividing of the disk into segments,
                 with each partition having its own filesystem and metadata.
               </li>
@@ -183,8 +189,8 @@
             <ul>
               <li>
                 Below, I will mount and unmount the ESP multiple times, creating
-                files at its mountpoint directory at certain junctions, to illustrate how everything
-                works.
+                files at its mountpoint directory at certain junctions, to
+                illustrate how everything works.
               </li>
               <li>
                 At any point, if you need a visual model of the filesystem
@@ -352,19 +358,22 @@
             <h2>References</h2>
             <ol>
               <li>
-                <a href="https://wiki.archlinux.org/index.php/file_systems#Mount_a_file_system"
+                <a
+                  href="https://wiki.archlinux.org/index.php/file_systems#Mount_a_file_system"
                   >ArchWiki - Filesystem (Mounting)</a
                 >
               </li>
 
               <li>
-                <a href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#theRootFilesystem"
+                <a
+                  href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#theRootFilesystem"
                   >Filesystem Hierarchy Standard - Root filesystem</a
                 >
               </li>
 
               <li>
-                <a href="https://wiki.archlinux.org/index.php/EFI_system_partition"
+                <a
+                  href="https://wiki.archlinux.org/index.php/EFI_system_partition"
                   >ArchWiki - EFI System Partition (ESP)</a
                 >
               </li>
@@ -380,7 +389,6 @@
                   >LWN - "What chroot() is really for" by Jake Edge</a
                 >
               </li>
-
             </ol>
 
             <h2>Final Notes</h2>
@@ -511,7 +519,10 @@
               <a href="https://unsplash.com">Unsplash</a>. Design:
               <a href="https://html5up.net">HTML5 UP</a>.
               <br />
-              Coffee cup icon made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> 
+              Coffee cup icon made by
+              <a href="https://www.flaticon.com/authors/freepik" title="Freepik"
+                >Freepik</a
+              >
             </p>
           </footer>
         </div>
