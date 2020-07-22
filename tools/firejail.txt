@@ -1,0 +1,17 @@
+- isolate a process and its descendants within firejail sandbox
+- provide private/virtualized view of system resources (PIDs, filesystem, users)
+- restrict access to system resources and data
+
+Main techniques:
+- namespaces
+- seccomp-bpf
+- linux capabilities
+
+Pros:
+- simple commands for end-user
+- simple configuration profiles for each application
+- simple techniques (?), easy to verify it does the right thing (???)
+- builds on existing features from Linux kernel
+- great documentation and man pages
+
+Examples of features

@@ -109,8 +109,8 @@
                     systems, and compiling new source packages into binaries
                     (gcc, glibc, binutils, make, ...). This includes the GNU
                     Compiler Collection (gcc), the GNU C library (glibc), GNU
-                    Binutils (binary utilities - assembler for assembly
-                    programs, linker for object files, ...).
+                    Binutils (assembler for assembly programs, linker for object
+                    files, ...).
                   </li>
                   <li>
                     Base system is a set of software packages used commonly in
@@ -160,20 +160,21 @@
               containing executable binary files, libraries, configuration
               files. During boot process, the kernel will mount this filesystem,
               execute the init process (AKA first process, ancestor of all
-              processes, system manager), which will call init scripts and start
-              up other services and processes. The operating system will be
+              processes, system manager), which will call init scripts and
+              startup other services and processes. The operating system will be
               loaded bit by bit into RAM, and eventually 'userspace' is reached,
               and you can launch your user programs.
             </p>
 
             <hr class="major" />
 
-            <h2>Linux in a single diagram - 3 main components</h2>
+            <h2>Linux in a single diagram - 4 main components</h2>
             <strong>
               <ol>
                 <li>Bootloader</li>
                 <li>Kernel</li>
                 <li>Filesystem hierarchy (directory structure and files)</li>
+                <li>System manager and other packages</li>
               </ol>
             </strong>
 
@@ -186,9 +187,9 @@
             </p>
             <ol>
               <li>Power on</li>
-              <li>UEFI boot menu entry</li>
+              <li>UEFI boot entry</li>
               <li>Bootloader</li>
-              <li>Search /boot</li>
+              <li>Enter /boot</li>
               <li>Kernel</li>
               <li>
                 Root filesystem mounting, initialization scripts, and system
@@ -214,7 +215,7 @@
             </p>
 
             <p>
-              Identify in the diagram each of the 3 main components of a Linux
+              Identify in the diagram each of the 4 main components of a Linux
               Operating System (OS):
             </p>
 
@@ -222,6 +223,7 @@
               <li>Bootloader</li>
               <li>Kernel</li>
               <li>Filesystem hierarchy</li>
+              <li>System manager and user packages</li>
             </ol>
 
             <span class="image main"
@@ -234,9 +236,8 @@
 
             <p>
               During the boot process, the bootloader stored on a specific
-              partition (EFI system partition) of storage disk is executed. The
-              bootloader then searches and loads the kernel into RAM, as part of
-              the
+              partition of storage disk is executed. The bootloader then loads
+              the kernel into RAM, as part of the
               <a href="../boot/boot_UEFI.html"
                 >boot process described more in my article on the UEFI boot
                 process</a
@@ -268,8 +269,8 @@
 
             <p>
               As mentioned, kernel space sits between user space and the
-              hardware. As such, user processes have to perform system calls
-              (requests to the kernel to perform operations on their behalf) for
+              hardware. As such, user processes have to perform system calls -
+              requests to the kernel to perform operations on their behalf - for
               certain operations such as read/write to file storage, or creating
               and communicating with other processes.
             </p>
@@ -299,18 +300,12 @@
               as of 21 July 2020. The
               <a
                 href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html"
-                >Filesystem Hierarchy Standard (FHS) by the Linux Foundation</a
+                >Filesystem Hierarchy Standard by the Linux Foundation</a
               >
               provides guidelines for filesystem structure. Most Linux
-              distributions follow it, with some deviations, allowing files to
-              be placed in a predictable location following the standard. The
-              image below is from the FHS page mentioned earlier describing some
-              of the common directories. You can skim it for fun :)
+              distributions follow it, with some deviations, allowing files to be placed in a
+              predictable location following the standard.
             </p>
-
-            <span class="image main"
-              ><img src="../images/general/linux_04.png" alt=""
-            /></span>
 
             <p>
               Each Linux distribution has their own package manager that makes
@@ -320,12 +315,11 @@
             </p>
 
             <p>
-              One side effect of this filesystem structure is that when
-              installing a software package, its files will be "scattered"
-              across the filesystem hierarchy. It also means that if a user or
-              program is searching for a configuration file (or other particular
-              type of file), it will likely be located in a predictable
-              directory.
+              This means that when installing a software package, its files will
+              be 'scattered' across the filesystem hierarchy. It also means that
+              if a user or program is searching for a configuration file (or
+              other particular type of file), it will likely be located in a
+              predictable directory.
             </p>
 
             <div class="table-wrapper">
@@ -365,47 +359,7 @@
               </table>
             </div>
 
-            <p class="no-margins">
-              Software packages are not required to install to <i>all</i> these
-              directories (i.e. they may not have libraries or man pages).
-              Different distributions may also differ in their filesystem
-              structure. A small subset of the files being installed by an
-              application called Firejail on the Arch Linux distribution:
-            </p>
-
-            <ul>
-              <li>/usr/bin/firejail</li>
-              <li>/etc/firejail/firefox-nightly.profile</li>
-              <li>/usr/lib/firejail/seccomp</li>
-              <li>/usr/share/doc/firejail/README</li>
-              <li>/usr/share/man/man1/firejail.1.gz</li>
-            </ul>
-
-            <h2>Conclusion</h2>
-
-            <p>
-              GNU software packages (toolchain and base system) and the Linux
-              kernel come together to form the GNU/Linux operating system. Linux
-              distributions are bundles of packages for distribution to end
-              users. The Linux filesystem hierarchy resides on your storage
-              disk, including binary executables, libraries, and configuration
-              files.
-            </p>
-
-            <p>
-              The 3 main components of a GNU/Linux operating system are:
-              bootloader, kernel, filesystem hierarchy.
-            </p>
-
-            <p>
-              Each Linux distribution has their own package manager that makes
-              it very easy to install, update, and remove packages. They also
-              install/update/remove packages that are required by these packages
-              (resolving dependencies). Installed files will be "scattered"
-              across the filesystem to predictable directories.
-            </p>
-
-            <hr class="major" />
+            <h2>4. System manager and User Packages</h2>
 
             <h2>References</h2>
             <ol>
@@ -422,63 +376,9 @@
               </li>
 
               <li>
-                <a href="https://wiki.archlinux.org/index.php/GNU"
-                  >ArchWiki - GNU</a
-                >
-              </li>
-              
-              <li>
-                <a href="https://wiki.archlinux.org/index.php/Core_utilities"
-                  >ArchWiki - Core utilities</a
-                >
-              </li>
-
-              <li>
                 <a
-                  href="https://www.redhat.com/en/topics/linux/what-is-the-linux-kernel"
-                  >Red Hat - What is the Linux kernel?</a
-                >
-              </li>
-              
-              <li>
-                <a
-                  href="https://en.wikipedia.org/wiki/CPU_modes"
-                  >Wikipedia - CPU modes</a
-                >
-              </li>
-              
-              <li>
-                <a
-                  href="https://en.wikipedia.org/wiki/Protection_ring"
-                  >Wikipedia - Protection ring</a
-                >
-              </li>
-
-              <li>
-                <a
-                  href="https://man7.org/linux/man-pages/man2/syscalls.2.html"
-                  >man-pages - Linux system calls</a
-                >
-              </li>
-
-              <li>
-                <a
-                  href="https://wiki.gentoo.org/wiki/Complete_Handbook/Users_and_the_Linux_file_system"
-                  >Gentoo Wiki - Users and the Linux file system</a
-                >
-              </li>
-              
-              <li>
-                <a
-                  href="https://en.wikipedia.org/wiki/Unix_filesystem"
-                  >Wikipedia - Unix filesystem</a
-                >
-              </li>
-
-              <li>
-                <a
-                  href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html"
-                  >The Linux Foundation - Filesystem Hierarchy Standard</a
+                  href="https://wiki.gentoo.org/wiki/Complete_Handbook/What_is_Linux"
+                  >Gentoo Wiki - What is Linux?</a
                 >
               </li>
             </ol>
