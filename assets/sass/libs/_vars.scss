@@ -21,7 +21,7 @@
 
 // Font.
 	$font: (
-		family:				(sans-serif),						// sky, used to be Open Sans
+		family:				(-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"), // sky, used to be Open Sans
 		family-heading:		('Roboto Slab', serif),
 		family-fixed:		('Courier New', monospace),
 		weight:				400,
@@ -33,7 +33,7 @@
 
 // Palette.
 	$palette: (
-		bg:					rgb(235, 235, 235),					// sky
+		bg:					rgb(256, 256, 256),					// sky
 		bg-alt:				rgb(50, 50, 50),					// sky
 		fg:					rgb(53,53,53),						// sky converted to rgb
 		fg-bold:			rgb(61,68,73),						// sky

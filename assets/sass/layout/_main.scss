@@ -8,7 +8,7 @@
 
 	#main {
 		p, li {
-			text-align: justify; // sky
+			text-align: left; // sky
 		}
 
 		@include vendor('flex-grow', '1');
@@ -16,11 +16,10 @@
 		width: 100%;
 
 		> .inner {
-			max-width: 1100px; // sky
+			max-width: 842px; // sky
 
 			@include padding(0, 6em);
 			margin: 0 auto;
-			// max-width: 110em; // sky
 
 			> section {
 				@include padding(6em, 0);
@@ -33,27 +32,27 @@
 		}
 
 		@include breakpoint('<=xlarge') {
-			> .inner {
-				max-width: 880px; // sky
+			// > .inner {
+			// 	max-width: 850px; // sky
 
-				@include padding(0, 5em);
+			// 	@include padding(0, 5em);
 
-				> section {
-					@include padding(5em, 0);
-				}
-			}
+			// 	> section {
+			// 		@include padding(5em, 0);
+			// 	}
+			// }
 		}
 
 		@include breakpoint('<=large') {
-			> .inner {
-				max-width: 848px;	// sky
+			// > .inner {
+			// 	max-width: 850px;	// sky
 				
-				@include padding(0, 4em);
+			// 	@include padding(0, 4em);
 
-				> section {
-					@include padding(4em, 0);
-				}
-			}
+			// 	> section {
+			// 		@include padding(4em, 0);
+			// 	}
+			// }
 		}
 
 		@include breakpoint('<=small') {

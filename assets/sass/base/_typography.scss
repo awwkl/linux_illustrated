@@ -15,14 +15,14 @@
 		font-family: _font(family);
 		font-size: 12pt;									// sky
 		font-weight: _font(weight);
-		line-height: 1.65;
+		line-height: 1.55;									// sky
 
 		@include breakpoint('<=xlarge') {
-			font-size: 11pt;								// sky
+			font-size: 12pt;								// sky
 		}
 
 		@include breakpoint('<=large') {
-			font-size: 11pt;								// sky
+			font-size: 12pt;								// sky
 		}
 
 		@include breakpoint('<=xxsmall') {

@@ -1,17 +1,46 @@
-- isolate a process and its descendants within firejail sandbox
-- provide private/virtualized view of system resources (PIDs, filesystem, users)
-- restrict access to system resources and data
+Introduction 
+    - security sandbox that isolates a process and its descendants
+    - presents a private/virtualized view of globally shared resources (process table, mount table, network stack)
+    - restrict access to system call, system resources and data files
+
+    A process can create child processes and those child processes can create their own child processes. For example, the Firefox parent process (running browser UI) may spawn many child processes (running web content). All of the Firefox processes should be contained within the sandboxed environment with restricted access.
+
+    Using namespaces, discussed later, Firejail 
 
 Main techniques:
-- namespaces
-- seccomp-bpf
-- linux capabilities
+    - namespaces
+    - seccomp-bpf
+    - linux capabilities
+
+Namespaces:
+    - defaults: mount (filesystem), PID, UTS
+    - extras: IPC, network, user
 
 Pros:
-- simple commands for end-user
-- simple configuration profiles for each application
-- simple techniques (?), easy to verify it does the right thing (???)
-- builds on existing features from Linux kernel
-- great documentation and man pages
+    - simple commands for end-user
+    - ships with easily-configurable security profiles for many applications
+    - lightweight and low overhead
+    - can sandbox almost any application
+    - virtually no dependencies
+    - simple techniques (?), easy to verify it does the right thing (???)
+    - builds on existing features from Linux kernel
+    - great documentation and man pages
 
 Examples of features
+
+
+Profiles
+    - defines a set of permissions  for  a  specific application  or  group of applications
+
+    - profiles will be selected from highest to lowest precendence:
+        => disable loading of security profile with --noprofile
+        => providing a profile file by pathname --profile=/home/sky/discord.profile
+        => profile file with same name as the application in ~/.config/firejail directory
+        => profile file with same name as the application in /etc/firejail directory
+
+    - Common profiles: xxx, yyy, zzz
+    - Example: Firefox browser
+
+
+References:
+    - https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Multiprocess_Firefox
