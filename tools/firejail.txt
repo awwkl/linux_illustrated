@@ -1,13 +1,45 @@
-Introduction 
+Introduction
+    - This article will discuss the security features implemented by the Firejail sandbox program. For a guide on how to use Firejail instead, see [ArchWiki - Firejail] or [Firejail - Usage]
+
+    - Contents:
+        - What is Firejail?
+        - Main security techniques used by Firejail
+        - Security Profiles
+        - Examples of features
+        - Example of sandboxing Firefox browser within Firejail
+        - Pros and Cons of Firejail
+        - Conclusion
+
+What is Firejail? 
+    - an SUID-root user space program
     - security sandbox that isolates a process and its descendants
-    - presents a private/virtualized view of globally shared resources (process table, mount table, network stack)
-    - restrict access to system call, system resources and data files
+    - presents an isolated instance or private view of global system resources (process table, filesystems, network stack, ...)
+    - restrict access to system calls, system resources and data files
 
-    A process can create child processes and those child processes can create their own child processes. For example, the Firefox parent process (running browser UI) may spawn many child processes (running web content). All of the Firefox processes should be contained within the sandboxed environment with restricted access.
+    The 4 points presented above are explained below. 
 
-    Using namespaces, discussed later, Firejail 
+    
 
-Main techniques:
+    (DETAILED) Every process has a real user ID (UID), and an effective user ID (EUID). The real user ID identifies the user to which the process belongs. The effective user ID is used to determine the permissions granted to a process, for various operations such as system calls and file access. For normal programs (non-SUID), the UID and EUID have the same values, and are both set to the user ID of the user who executed the process. 
+    
+    (DETAILED) The real user ID is the user who executed the program; the effective user ID can be changed through system calls, or using a set-user-ID (SUID) program. An SUID program, when executed, sets the effective user ID to the user ID of the owner of the executable file, instead of the user who executed the program. This allows a process to gain privileges it would not normally have when executed by unprivileged users. An SUID-root program is an SUID program that is owned by root (user ID of 0).
+
+    Thus, the SUID-root firejail program can be executed by a normal unprivileged user, and the firejail process will effectively gain root privileges when executed. Firejail has to be run with root privileges to set up the sandbox environment, for namespaces and restricted system calls. However, the processes inside the Firejail sandbox may still be run as unprivileged processes. In fact, firejail can install a user namespace with only one valid user, the current user.
+    
+    Below, for the firejail executable, the 'x' that  is  normally used to indicate the execute permission is replaced by an 's', indicating the suid permission bit.
+
+    # ls /usr/bin/firejail -lh --time-style=long-iso
+    -rwsr-xr-x 1 root root 420K 2020-01-02 01:18 /usr/bin/firejail                    
+
+    Firejail is a user space program; it is run in memory that is marked as user space and not kernel space (for running kernel and kernel modules/drivers). Its user ID (owner) is root, a privileged user that can make system calls to request the kernel to perform operations on its behalf.
+
+    A process can create child processes and those child processes can create their own child processes. For example, the Firefox parent process (running browser UI) may spawn many child processes (running web content). All of the Firefox processes should not be allowed to escape from the sandboxed environment with restricted access.
+
+    Using namespaces, discussed later, Firejail can present a modified view of certain system resources to processes within the namespace. This restricts what system resources the sandboxed process can view, read or write.
+
+    Firejail also restricts the system calls available to sandboxed processes. These restrictions follow the principle of least privilege: to provide the least amount of privileges that still allows the processes to function.
+
+Main security techniques used by Firejail:
     - namespaces
     - seccomp-bpf
     - linux capabilities
@@ -16,14 +48,39 @@ Namespaces:
     - defaults: mount (filesystem), PID, UTS
     - extras: IPC, network, user
 
+    Mount:
+        - isolate the set of filesystem mount points, presenting a different view of the filesystem hierarchy
+        - Firejail has a few options : 
+
+    PID (process ID):
+        - kernel keeps a list of all processes in the kernel's process table, with general information about each process (PID, user/owner, parent)
+        - PID namespace isolates the PID number space
+        - (container/sandbox) illusion that they are the only processes on the system
+
+    UTS:
+        - isolate hostname (nodename, sethostname()) and NIS domain name (domainname, setdomainname())
+        - (simplified) hostname = name of machine, domain name = name of network
+
+    IPC (interprocess communication):
+        - IPC objects are used for communication between processes
+        - this includes message queues, semaphores, shared memory objects
+
+    network:
+        - each network namespace has its own network devices, IP addresses, IP routing tables, /proc/net directory, and port numbers
+        - (explain advantage of network namespacing)
+
+    user:
+        - user namespace isolates the user and group ID number spaces
+
 Pros:
     - simple commands for end-user
     - ships with easily-configurable security profiles for many applications
     - lightweight and low overhead
-    - can sandbox almost any application
-    - virtually no dependencies
+    - can sandbox almost any application, with default profile
+    - written in C with virtually no dependencies
     - simple techniques (?), easy to verify it does the right thing (???)
-    - builds on existing features from Linux kernel
+    - implemented using existing features from Linux kernel
+    - can work with existing Linux Security Modules such as AppArmor and SELinux
     - great documentation and man pages
 
 Examples of features
@@ -33,14 +90,18 @@ Profiles
     - defines a set of permissions  for  a  specific application  or  group of applications
 
     - profiles will be selected from highest to lowest precendence:
-        => disable loading of security profile with --noprofile
-        => providing a profile file by pathname --profile=/home/sky/discord.profile
-        => profile file with same name as the application in ~/.config/firejail directory
-        => profile file with same name as the application in /etc/firejail directory
+        => disable loading of any security profile with --noprofile
+        => load a profile by pathname. e.g. --profile=/home/sky/discord.profile
+        => profile with same name as the application in ~/.config/firejail directory
+        => profile with same name as the application in /etc/firejail directory
 
     - Common profiles: xxx, yyy, zzz
     - Example: Firefox browser
 
 
 References:
-    - https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Multiprocess_Firefox
+    - firejail github pages
+    - firejail docs
+    - Arch Wiki
+    - LWN namespaces
+    - LWN firejail

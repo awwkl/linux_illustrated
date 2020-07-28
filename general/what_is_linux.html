@@ -93,10 +93,15 @@
 
             <ol>
               <li>
-                The <strong>Linux kernel</strong> is the core of the operating
+                Computer resources are finite or shared, such as physical
+                memory, CPU execution cycles, devices/hardware and files. The
+                <strong>Linux kernel</strong> is the core of the operating
                 system. It manages and allocates computer resources (CPU
                 scheduling, memory management, process management, filesystem
-                management, device management, networking, etc.)
+                management, device management, networking, etc.). Its most
+                important role is, perhaps, allowing multiple user programs to
+                be run on the same operating system without conflict, while
+                having to share finite system resources.
               </li>
 
               <br />
@@ -105,28 +110,36 @@
                 <strong>GNU</strong> provides the rest of the operating system:
                 <ul>
                   <li>
-                    Toolchain used for developing applications and operating
-                    systems, and compiling new source packages into binaries
-                    (gcc, glibc, binutils, make, ...). This includes the GNU
-                    Compiler Collection (gcc), the GNU C library (glibc), GNU
-                    Binutils (binary utilities - assembler for assembly
-                    programs, linker for object files, ...).
+                    Toolchain used for developing applications and the operating
+                    system. The toolchain is rarely used directly by end users;
+                    they are development tools, or used indirectly by programs
+                    on your system. This includes the GNU Compiler Collection
+                    (gcc), the GNU C library (glibc), GNU Binutils (binary
+                    utilities - assembler for assembly programs, linker for
+                    object files, ...).
                   </li>
                   <li>
                     Base system is a set of software packages used commonly in
-                    the GNU/Linux operating system. This includes bash (command
-                    shell program), GRUB (bootloader), coreutils (cd, cat, ls,
-                    rm, ...), and other utilities (tar, grep, sed, ...).
+                    the GNU/Linux operating system. These are utilities for
+                    managing your programs and files. These are command-line
+                    programs; but there are graphical applications built on top
+                    of these tools, if a user does not wish to interact through
+                    the command line. This includes bash (command shell
+                    interpreter program, to interpret commands), GRUB
+                    (bootloader for booting the OS), coreutils (core utilities
+                    for using the OS - cd, cat, ls, rm, ...), and other
+                    utilities (tar, grep, sed, ...).
                   </li>
                 </ul>
               </li>
 
               <li>
                 And then there are <strong>other software packages</strong>,
-                like web browsers and text editors. Perhaps surprising to some,
-                this also includes your graphical user interface (GUI), which
-                ultimately is just a set of packages. You can change your
-                desktop environment/window manager easily in Linux!
+                like web browsers and text editors. These are the user software
+                programs. Perhaps surprising to some, this also includes your
+                graphical user interface (GUI), which ultimately is just a set
+                of packages. You can change your desktop environment/window
+                manager easily in Linux!
               </li>
             </ol>
 
@@ -148,9 +161,10 @@
               image, the files in the filesystem hierarchy, and the system
               manager and other software. This allows users/administrators to
               have a great degree of flexibility. Almost everything can be
-              changed or added, simply by installing the desired software:
-              bootloader, kernel (yes even the kernel!!), desktop environment,
-              network manager, command shell, browser, and more.
+              changed or added, simply by installing the desired files (bundled
+              into packages) to the correct locations: bootloader, kernel (yes
+              even the kernel!!), desktop environment, network manager, command
+              shell, browser, and more.
             </p>
 
             <p>
@@ -158,12 +172,13 @@
               reside somewhere... yes, it resides on your disk storage
               (SSD/HDD). The Linux operating system resides as a filesystem
               containing executable binary files, libraries, configuration
-              files. During boot process, the kernel will mount this filesystem,
-              execute the init process (AKA first process, ancestor of all
-              processes, system manager), which will call init scripts and start
-              up other services and processes. The operating system will be
-              loaded bit by bit into RAM, and eventually 'userspace' is reached,
-              and you can launch your user programs.
+              files. Once again, everything is a file! During boot process, the
+              kernel will mount this filesystem, execute the init process (AKA
+              first process, ancestor of all processes, system manager), which
+              will call init scripts and start up other services and processes.
+              The operating system will be loaded bit by bit into RAM, and
+              eventually 'user space' is reached, and you can launch your user
+              programs.
             </p>
 
             <hr class="major" />
@@ -182,17 +197,27 @@
               <a href="../boot/boot_UEFI.html"
                 >my article on the UEFI boot process</a
               >, where I explain the steps of booting, from power on to system
-              initialization. The boot process can be summarized as:
+              initialization. It is fine if you do not understand the boot
+              process; you may read that later; the article also explains some
+              of the terms used below in greater detail. Just remember that
+              everything is a file, and try to identify in the image below the
+              (1) bootloader, (2) kernel, and (3) filesystem structure.
             </p>
+
+            <p>
+              The boot process can be summarized as:
+            </p>
+
             <ol>
               <li>Power on</li>
-              <li>UEFI boot menu entry</li>
-              <li>Bootloader</li>
-              <li>Search /boot</li>
-              <li>Kernel</li>
               <li>
-                Root filesystem mounting, initialization scripts, and system
-                manager
+                Select UEFI boot menu entry (software stored on motherboard)
+              </li>
+              <li>Execute Bootloader</li>
+              <li>Search /boot filesystem for kernel</li>
+              <li>Bootloader loads Kernel</li>
+              <li>
+                Mount root filesystem, start initialization scripts
               </li>
             </ol>
 
@@ -206,11 +231,11 @@
 
             <p>
               This next image presents the components of Linux in a single
-              diagram. It provides an overview of how the bootloader, kernel,
-              and filesystem interact. The system manager and user applications
-              are just files - executables (in /bin), libraries (in /lib),
-              configurations (in /etc) - "scattered" across the different
-              directories in the filesystem.
+              diagram. It provides an idea of where the bootloader, kernel, and
+              filesystem are located. The programs on your system are just files
+              - executables (in /bin), libraries (in /lib), configuration files
+              (in /etc) - "scattered" across the different directories in the
+              filesystem.
             </p>
 
             <p>
@@ -234,55 +259,62 @@
 
             <p>
               During the boot process, the bootloader stored on a specific
-              partition (EFI system partition) of storage disk is executed. The
-              bootloader then searches and loads the kernel into RAM, as part of
-              the
+              partition (EFI system partition) of a storage disk is executed.
+              The bootloader then searches and loads the kernel into RAM, as
+              part of the
               <a href="../boot/boot_UEFI.html"
                 >boot process described more in my article on the UEFI boot
                 process</a
               >.
             </p>
 
+            <p>
+              Thus, the bootloader is the middleman to pass control from the
+              UEFI firmware located on the motherboard, to the kernel, the core
+              of the operating system.
+            </p>
+
             <h2>2. Kernel</h2>
 
             <p>
-              CPUs may operate in different modes, commonly two separate modes:
-              kernel mode and user mode. These are protection modes with
-              differing restrictions on the types of allowed operations. These
-              CPU modes are commonly enforced at the hardware level.
+              Your CPU executes instructions, allowing programs to run. CPUs may
+              operate in different modes, commonly two separate modes: kernel
+              mode and user mode. These are protection modes with differing
+              restrictions on the types of allowed operations. These CPU modes
+              are commonly enforced at the hardware level.
             </p>
 
             <p>
               The kernel is the core of the operating system, and operates in
               the privileged kernel mode, where it can perform unrestricted
-              device/hardware management, hardware instructions and memory
-              access.
+              device/hardware management, CPU instructions and memory access.
             </p>
 
             <p>
               User processes, on the other hand, operate in user mode. User
               processes may not be able to interact directly with hardware, have
-              restricted hardware instructions, and may only access memory that
-              is marked as being in user space.
+              restricted CPU instructions, and may only access memory that is
+              marked as being in user space.
             </p>
 
             <p>
               As mentioned, kernel space sits between user space and the
               hardware. As such, user processes have to perform system calls
               (requests to the kernel to perform operations on their behalf) for
-              certain operations such as read/write to file storage, or creating
-              and communicating with other processes.
+              certain types of operations such as read/write to file storage, or
+              creating and communicating with other processes.
             </p>
 
             <p>
               The kernel performs the central role in the operating system, of
-              managing and allocating system resources. This includes scheduling
-              processes for CPU execution; allocating physical memory and
-              managing virtual memory for processes; managing filesystems;
-              creating, executing and terminating processes; accessing
-              hardware/devices; network communication; and providing a system
-              call API for user processes. Perhaps I will write an article with
-              illustrations on the kernel's role soon :)
+              managing and allocating system resources. This includes deciding
+              when to schedule processes for CPU execution; allocating physical
+              memory amongst processes; managing access to files and
+              directories; creating, executing and terminating processes;
+              accessing hardware/devices; handling network communication for
+              user processes; and providing an interface for user processes to
+              perform system calls (system call API/interface). Perhaps I will
+              write an article with illustrations on the kernel's role soon :)
             </p>
 
             <h2>3. Filesystem hierarchy</h2>
@@ -322,10 +354,15 @@
             <p>
               One side effect of this filesystem structure is that when
               installing a software package, its files will be "scattered"
-              across the filesystem hierarchy. It also means that if a user or
-              program is searching for a configuration file (or other particular
-              type of file), it will likely be located in a predictable
-              directory.
+              across the filesystem hierarchy. It also means that if a user is
+              searching for a configuration file (or other particular type of
+              file), it will likely be located in a predictable directory.
+              Programs also depend on this predictable hierarchy; they may
+              depend on configuration files or libraries. The filesystem should
+              be neat, and predictable. Software programs are created by
+              developers from around the world. Your system will have hundreds
+              of software programs, and there needs to be a logical hierarchy of
+              files and directories.
             </p>
 
             <div class="table-wrapper">
@@ -339,7 +376,7 @@
                 <tbody>
                   <tr>
                     <td>/usr/bin</td>
-                    <td>executable files</td>
+                    <td>binary executable files</td>
                   </tr>
 
                   <tr>
@@ -366,16 +403,18 @@
             </div>
 
             <p class="no-margins">
-              Software packages are not required to install to <i>all</i> these
-              directories (i.e. they may not have libraries or man pages).
-              Different distributions may also differ in their filesystem
-              structure. A small subset of the files being installed by an
-              application called Firejail on the Arch Linux distribution:
+              A package manager will download your desired software package, and
+              install its files to the correct directories. Software packages
+              are not required to install to
+              <i>all</i> these directories (i.e. they may not have libraries or
+              man pages). Different distributions may also differ in their
+              filesystem structure. A small subset of the files being installed
+              by an application called Firejail on the Arch Linux distribution:
             </p>
 
             <ul>
               <li>/usr/bin/firejail</li>
-              <li>/etc/firejail/firefox-nightly.profile</li>
+              <li>/etc/firejail/chromium.profile</li>
               <li>/usr/lib/firejail/seccomp</li>
               <li>/usr/share/doc/firejail/README</li>
               <li>/usr/share/man/man1/firejail.1.gz</li>
@@ -385,11 +424,11 @@
 
             <p>
               GNU software packages (toolchain and base system) and the Linux
-              kernel come together to form the GNU/Linux operating system. Linux
-              distributions are bundles of packages for distribution to end
-              users. The Linux filesystem hierarchy resides on your storage
-              disk, including binary executables, libraries, and configuration
-              files.
+              kernel come together to form the GNU/Linux operating system. A
+              Linux distribution is a means of distributing an operating system,
+              with a filesystem and software packages, to end users. The Linux
+              filesystem hierarchy resides on your storage disk, including
+              binary executables, libraries, and configuration files.
             </p>
 
             <p>
@@ -426,7 +465,7 @@
                   >ArchWiki - GNU</a
                 >
               </li>
-              
+
               <li>
                 <a href="https://wiki.archlinux.org/index.php/Core_utilities"
                   >ArchWiki - Core utilities</a
@@ -439,24 +478,21 @@
                   >Red Hat - What is the Linux kernel?</a
                 >
               </li>
-              
+
               <li>
-                <a
-                  href="https://en.wikipedia.org/wiki/CPU_modes"
+                <a href="https://en.wikipedia.org/wiki/CPU_modes"
                   >Wikipedia - CPU modes</a
                 >
               </li>
-              
+
               <li>
-                <a
-                  href="https://en.wikipedia.org/wiki/Protection_ring"
+                <a href="https://en.wikipedia.org/wiki/Protection_ring"
                   >Wikipedia - Protection ring</a
                 >
               </li>
 
               <li>
-                <a
-                  href="https://man7.org/linux/man-pages/man2/syscalls.2.html"
+                <a href="https://man7.org/linux/man-pages/man2/syscalls.2.html"
                   >man-pages - Linux system calls</a
                 >
               </li>
@@ -467,10 +503,9 @@
                   >Gentoo Wiki - Users and the Linux file system</a
                 >
               </li>
-              
+
               <li>
-                <a
-                  href="https://en.wikipedia.org/wiki/Unix_filesystem"
+                <a href="https://en.wikipedia.org/wiki/Unix_filesystem"
                   >Wikipedia - Unix filesystem</a
                 >
               </li>

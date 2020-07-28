@@ -58,7 +58,13 @@
               <h1>BIOS Boot Process</h1>
             </header>
 
+            <p>This article is a WIP...</p>
+
             <h2>Introduction</h2>
+
+            <p>
+              BIOS is the predecessor of UEFI. UEFI is the successor to BIOS. If your system permits, use UEFI.
+            </p>
 
             <p>
               This article will outline the differences between the boot process
@@ -70,16 +76,30 @@
               <li>differences in disk partitioning</li>
             </ul>
 
-            <hr class="major" />
+            <ol>
+              <li>Power On</li>
+              <li>BIOS launches the first 440 bytes, the Master Boot Record (MBR), of the first disk in the BIOS boot order</li>
+              <li>The bootloader's first stage in the MBR then launches the second stage from the next disk sectors after the MBR, called the post-MBR gap</li>
+              <li>Bootloader is executed</li>
+              <li>Bootloader loads kernel into memory</li>
+              <li>Kernel mounts root filesystem</li>
+              <li>init process is executed</li>
+            </ol>
 
-            <h2>This Article is a Work In Progress</h2>
+            <p>Try drawing out or visualizing the boot process, with the UEFI image above as a reference. For BIOS boot process, the only disk partition required is the root partition. The MBR and post-MBR gap are not real partitions; they are just allocated regions on a hard disk with a MBR partition scheme. There is also no EFI system partition (ESP) as the ESP is only used for UEFI booting.</p>
 
-            <p>
-              I will update the page with illustrations soon. For now, refer to:
-              <a href="https://wiki.archlinux.org/index.php/Arch_boot_process#Under_BIOS"
-                >BIOS Boot Process</a
-              >
+            <p class="no-margins">
+              The chief differences are the absence of ESP, and the extra MBR and post-MBR regions. In your mental model, there should be the following:
             </p>
+
+            <ol>
+              <li>BIOS firmware</li>  
+              <li>MBR and first stage bootloader</li>
+              <li>post-MBR gap</li>
+              <li>Root partition and filesystem</li>
+              <li>Kernel, usually located /boot/vmlinuz-linux</li>
+              <li>init process in root filsystem</li>
+            </ol>
 
             <hr class="major" />
 
