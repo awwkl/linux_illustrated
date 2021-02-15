@@ -2,7 +2,7 @@
 
 ### - simple illustrations of Linux
 
-#### Please view the website at https://sky-aw.github.io/Linux-Illustrated
+#### Please view the website at https://sky-aw.github.io/linux_illustrated
 
 I have found a lack of illustrations in most explanations of Linux topics out there. This website serves to provide simple illustrations and explanations on Linux, targeted for newcomers and those wishing to learn more.
 
